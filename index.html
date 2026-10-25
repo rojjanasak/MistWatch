@@ -1,4 +1,5 @@
 <!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a2236"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>MistWatch Thailand | Smart Camping</title>
+<script>(function(){try{var p=localStorage.getItem('mist_theme')||'auto';var h=+new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Bangkok',hour:'2-digit',hourCycle:'h23'}).format(new Date());var d=p==='dark'||(p==='auto'&&(h>=18||h<6));var r=document.documentElement;r.dataset.theme=d?'dark':'light';r.dataset.bsTheme=d?'dark':'light'}catch(e){}})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
@@ -207,11 +208,62 @@ details.about p{font-size:.82rem;color:#445d6e;line-height:1.65}
 .gear-t{display:block;font-weight:800;color:#2b4457}
 .gear-d{display:block;color:#587083}
 .top3-card .temp3{margin-top:2px}
+
+.chart-wrap{height:270px}
+.chart-info{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chart-info span{background:#f1f6f9;border-radius:999px;padding:5px 11px;font-size:.72rem;font-weight:600;color:#3b5668}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#f1f6f9;border-radius:18px;padding:5px}
+.seg button{border:0;background:transparent;border-radius:14px;padding:10px 4px;font-size:.8rem;font-weight:700;color:#5d7585;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .25s var(--ease)}
+.seg button.on{background:linear-gradient(135deg,#17c5a2,#0b8a78);color:#fff;box-shadow:0 8px 16px -8px #0b8a78cc}
+.seg button:active{transform:scale(.95)}
+body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,.bottom-nav,details.about{transition:background-color .35s,border-color .35s,color .35s}
+/* ===== DARK MODE ===== */
+[data-theme=dark]{--ink:#e6f0f5;--mute:#8fa5b3;--bg:#07131d;--line:#1f3646;--shadow:0 12px 30px -14px #000c,0 2px 6px #0006;color-scheme:dark}
+[data-theme=dark] body{background-color:#07131d;background-image:radial-gradient(520px 320px at 100% 0,#0e4a4a66,transparent 70%),radial-gradient(520px 360px at -10% 40%,#12356466,transparent 70%)}
+[data-theme=dark] .live-pill,[data-theme=dark] .chip,[data-theme=dark] .top3-card,[data-theme=dark] .rank-table tr,[data-theme=dark] .sec,[data-theme=dark] details.about,[data-theme=dark] .back-btn,[data-theme=dark] .v2-summary span{background:#0f2230;border-color:#1f3646;color:var(--ink)}
+[data-theme=dark] .top3-card.first{background:linear-gradient(160deg,#0f3d38,#0f2230 62%);border-color:#1c6b5d}
+[data-theme=dark] #liveRefreshStatus,[data-theme=dark] .v2-summary span{color:#a9c0cd}
+[data-theme=dark] .v2-note,[data-theme=dark] details.about p,[data-theme=dark] .gear-d,[data-theme=dark] .form-label{color:#9db4c2}
+[data-theme=dark] .gear-t{color:#dbe9f0}
+[data-theme=dark] .bottom-nav{background:#0c1b28d9;border-color:#ffffff14}
+[data-theme=dark] .bottom-tab{color:#8aa0af}
+[data-theme=dark] .form-control,[data-theme=dark] .form-select{background-color:#162d3d;color:var(--ink)}
+[data-theme=dark] .form-control:focus,[data-theme=dark] .form-select:focus{background-color:#1a3649}
+[data-theme=dark] .form-control::placeholder{color:#6f8796}
+[data-theme=dark] .camp-list{background:#162d3d}
+[data-theme=dark] .camp-list label,[data-theme=dark] .divider,[data-theme=dark] .switch-row,[data-theme=dark] .rank-table td:nth-child(9){border-color:#24404f}
+[data-theme=dark] .divider{background:#24404f}
+[data-theme=dark] .alert-msg,[data-theme=dark] #status:not(:empty),[data-theme=dark] .gear,[data-theme=dark] .t-box,[data-theme=dark] .chart-info span,[data-theme=dark] .seg{background:#162d3d}
+[data-theme=dark] .chart-info span{color:#b9cdd9}
+[data-theme=dark] .seg button{color:#9db4c2}
+[data-theme=dark] .seg button.on{color:#fff}
+[data-theme=dark] .t-day{background:#3a2a14}[data-theme=dark] .t-day b{color:#ffb15c}
+[data-theme=dark] .t-night{background:#1b2650;box-shadow:inset 0 0 0 1.5px #3d4f9a}[data-theme=dark] .t-night b{color:#9bb0ff}
+[data-theme=dark] .t-morn{background:#0f3d38}[data-theme=dark] .t-morn b{color:#4fe0c0}
+[data-theme=dark] .t-box span{color:#a9c0cd}
+[data-theme=dark] .scorebar{background:#21394a}
+[data-theme=dark] .pill{background:#0f3d38!important;color:#4fe0c0}
+[data-theme=dark] .tag{background:#12384a;color:#7cc8ec}
+[data-theme=dark] .v2-warning{background:#3a2e12;border-color:#6b5420;color:#f2dca0}
+[data-theme=dark] .refresh-btn{background:#12384a;color:#4fe0c0}
+[data-theme=dark] .top3-score,[data-theme=dark] .top3-rank,[data-theme=dark] .rank-table td:nth-child(2) strong{color:#4fe0c0}
+[data-theme=dark] .chip i{color:#4fe0c0}
+[data-theme=dark] .map-legend{background:#0f2230e6;color:var(--ink)}
+[data-theme=dark] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.9) saturate(.75)}
+[data-theme=dark] #campMap{background:#0b1a26}
+[data-theme=dark] .leaflet-popup-content-wrapper,[data-theme=dark] .leaflet-popup-tip{background:#0f2230;color:var(--ink)}
+[data-theme=dark] .leaflet-bar a{background:#0f2230;color:#e6f0f5;border-color:#1f3646}
+[data-theme=dark] .leaflet-control-attribution{background:#0f2230cc!important;color:#8fa5b3}
+[data-theme=dark] .leaflet-control-attribution a{color:#7cc8ec}
+[data-theme=dark] .btn-outline-success{--bs-btn-color:#4fe0c0;--bs-btn-border-color:#1c6b5d;--bs-btn-hover-color:#06121b;--bs-btn-hover-bg:#4fe0c0;--bs-btn-hover-border-color:#4fe0c0}
+[data-theme=dark] .btn-outline-primary{--bs-btn-color:#8cc4ee;--bs-btn-border-color:#2c5578;--bs-btn-hover-color:#06121b;--bs-btn-hover-bg:#8cc4ee;--bs-btn-hover-border-color:#8cc4ee}
+[data-theme=dark] .btn-outline-secondary{--bs-btn-color:#9db4c2;--bs-btn-border-color:#2f4a5b;--bs-btn-hover-bg:#2f4a5b;--bs-btn-hover-color:#fff}
+[data-theme=dark] .btn-link{color:#9db4c2}
 @media(max-width:380px){.metric{font-size:2.8rem}.hero h1{font-size:1.18rem}}
 @media(min-width:900px){body{padding-bottom:130px}}
 </style></head><body>
 
-<header class="app-header" id="appHeader"><div class="hdr-inner"><div class="brand"><div class="logo"><i class="bi bi-cloud-fog2-fill"></i></div><div><div class="brand-t">MistWatch</div><div class="brand-s">SMART CAMPING · THAILAND</div></div></div><button id="openSettings" class="icon-btn" aria-label="ตั้งค่า"><i class="bi bi-sliders2"></i></button></div></header>
+<header class="app-header" id="appHeader"><div class="hdr-inner"><div class="brand"><div class="logo"><i class="bi bi-cloud-fog2-fill"></i></div><div><div class="brand-t">MistWatch</div><div class="brand-s">SMART CAMPING · THAILAND</div></div></div><div class="d-flex gap-2"><button id="themeBtn" class="icon-btn" aria-label="สลับโหมดมืด/สว่าง"><i class="bi bi-moon-stars-fill"></i></button><button id="openSettings" class="icon-btn" aria-label="ตั้งค่า"><i class="bi bi-sliders2"></i></button></div></div></header>
 
 <!-- ============ HOME ============ -->
 <section id="view-home" class="app-view active"><div class="app-content">
@@ -240,7 +292,7 @@ details.about p{font-size:.82rem;color:#445d6e;line-height:1.65}
  <div class="sec-head"><h2>อันดับลานและเช้าที่เหมาะสม</h2><span class="small-muted">แตะการ์ดเพื่อดูกราฟ</span></div>
  <table class="rank-table mt-2"><thead><tr><th>ลาน / วันที่</th><th>คะแนน</th><th>ความเชื่อมั่น*</th><th>อุณหภูมิ</th><th>สภาพอากาศ</th><th>RH</th><th>ลม</th><th>ฝน</th><th>คำแนะนำ</th></tr></thead><tbody id="results"><tr><td colspan="9">เลือกวันที่และกดตรวจพยากรณ์จริง</td></tr></tbody></table>
 
- <div class="sec mt-2"><div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-2"><h5 class="fw-bold mb-0" id="chartTitle" style="font-size:1rem">ข้อมูลรายชั่วโมง</h5><span class="small-muted">RH • อุณหภูมิ • จุดน้ำค้าง</span></div><div class="chart-wrap"><canvas id="weatherChart"></canvas></div></div>
+ <div class="sec mt-2"><div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-2"><h5 class="fw-bold mb-0" id="chartTitle" style="font-size:1rem">ข้อมูลรายชั่วโมง</h5><span class="small-muted">RH • อุณหภูมิ • จุดน้ำค้าง</span></div><div class="chart-wrap"><canvas id="weatherChart"></canvas></div><div class="chart-info" id="chartInfo"></div></div>
 
  <details class="about"><summary>วิธีอ่านคะแนนและข้อจำกัด <i class="bi bi-chevron-down"></i></summary><div class="about-body">
   <p>อุณหภูมิแยก 3 ช่วง: <strong>กลางวัน</strong> = ค่าสูงสุด 09:00–18:00 น., <strong>กลางคืน</strong> = ค่าต่ำสุด 18:00 ของวันก่อนหน้าถึง 06:00 ของเช้านั้น (ช่วงที่นอนในเต็นท์ ใช้เลือกถุงนอนและเสื้อผ้า), <strong>เช้าชมหมอก</strong> = ค่าเฉลี่ยในช่วงที่เลือก คำแนะนำถุงนอน/เสื้อผ้าเป็นแนวทางทั่วไป อุณหภูมิจริงบนลานสูงอาจต่ำกว่าพยากรณ์ ควรเผื่อไว้ 2–3°C และสัญลักษณ์ * คือข้อมูลกลางคืนไม่ครบ ส่วนคำว่า หนาว/เย็น/ปานกลาง/ร้อน เป็นเกณฑ์เพื่อการท่องเที่ยว ส่วนคำว่า หนาว/เย็น/ปานกลาง/ร้อน เป็นเกณฑ์เพื่อการท่องเที่ยว ไม่ใช่ค่าดัชนีความรู้สึกจริงหรือประกาศทางการ ระบบใช้ความชื้นสัมพัทธ์ ความต่างอุณหภูมิกับจุดน้ำค้าง ความเร็วลม เมฆต่ำ ฝน และความชื้นจากฝนก่อนหน้า เพื่อสร้าง <strong>Mist Suitability Score</strong> 0–100 จากกฎเชิงประจักษ์เบื้องต้น ไม่ใช่ความน่าจะเป็นเชิงสถิติ จึงไม่ควรตีความคะแนน 80 ว่าจะเกิดทะเลหมอก 80% จริง</p>
@@ -257,6 +309,9 @@ details.about p{font-size:.82rem;color:#445d6e;line-height:1.65}
 <section id="view-setting" class="app-view"><div class="setting-content">
  <div class="page-head"><button id="settingBack" class="back-btn" aria-label="กลับ"><i class="bi bi-arrow-left"></i></button><h4>ตั้งค่า</h4></div>
 
+ <div class="sec"><div class="sec-title"><span class="ico" style="--c:#5b6bdf"><i class="bi bi-circle-half"></i></span><div><h3>ธีมแอป</h3><p>อัตโนมัติ = มืดตั้งแต่ 18:00 ถึง 06:00 น. ตามเวลาไทย</p></div></div>
+  <div class="seg" id="themeSeg"><button data-theme-pref="auto"><i class="bi bi-magic"></i>อัตโนมัติ</button><button data-theme-pref="light"><i class="bi bi-sun-fill"></i>สว่าง</button><button data-theme-pref="dark"><i class="bi bi-moon-stars-fill"></i>มืด</button></div>
+ </div>
  <div class="sec"><div class="sec-title"><span class="ico" style="--c:#12b392"><i class="bi bi-search"></i></span><div><h3>ตั้งค่าการค้นหา</h3><p>เลือกพื้นที่ วันที่ และช่วงเวลาชมหมอก</p></div></div>
   <label class="form-label">จังหวัด</label><select class="form-select mb-3" id="province"></select>
   <label class="form-label">ลานกางเต็นท์ <span class="fw-normal text-secondary">(โหมดทุกจังหวัด: เลือกหลายแห่ง / โหมดจังหวัด: ประเมินทุกลานอัตโนมัติ)</span></label>
@@ -397,7 +452,32 @@ function tempText(r){return r.tempMin===null?'—':`${fmt(r.tempMin,1)}–${fmt(
 function scoreLabel(s){return s>=75?'เอื้อต่อหมอกมาก':s>=55?'ค่อนข้างเอื้อ':s>=35?'ปานกลาง':'ไม่ค่อยเอื้อ'}function fmt(n,d=0){return n===null?'—':n.toFixed(d)}
 function renderResults(rows){lastRows=rows.slice().sort((a,b)=>b.score-a.score);$('results').innerHTML=lastRows.length?lastRows.map((r,i)=>`<tr class="pointer" data-row="${i}"><td><strong>${escapeHtml(r.camp.name)}</strong><div class="small-muted">${escapeHtml(r.camp.province)} • ${r.date}</div></td><td style="min-width:110px"><strong>${r.score}/100</strong><div class="scorebar"><div style="width:${r.score}%"></div></div></td><td>${escapeHtml(r.confidence)}</td><td>${tempBlock(r)}</td><td><span class="badge text-bg-${temperatureFeel(r.tempMin,r.tempMax).tone}">${temperatureFeel(r.tempMin,r.tempMax).emoji} ${temperatureFeel(r.tempMin,r.tempMax).label}</span></td><td>${fmt(r.rh)}%</td><td>${fmt(r.wind,1)} m/s</td><td>${fmt(r.rain,1)} mm</td><td><span class="pill bg-light">${scoreLabel(r.score)}</span></td></tr>`).join(''):'<tr><td colspan="9" class="text-center py-4">ไม่มีข้อมูลในช่วงที่เลือก</td></tr>';$('results').querySelectorAll('tr[data-row]').forEach(tr=>tr.addEventListener('click',()=>showChart(lastRows[Number(tr.dataset.row)])));$('bestScore').textContent=lastRows.length?lastRows[0].score+'/100':'—';$('bestScore').classList.remove('pop');void $('bestScore').offsetWidth;$('bestScore').classList.add('pop');$('bestName').textContent=lastRows.length?lastRows[0].camp.name+' • '+lastRows[0].date:'ไม่มีข้อมูล';$('coverage').textContent=new Set(rows.map(r=>r.date)).size+' วัน';$('campCount').textContent=new Set(rows.map(r=>r.camp.name)).size+' ลาน';if(lastRows.length)showChart(lastRows[0])}
 function renderTop3(rows,province){const best=new Map();for(const row of rows){const key=row.camp.name+'|'+row.camp.province;const old=best.get(key);if(!old||row.score>old.score)best.set(key,row)}const top=[...best.values()].sort((a,b)=>b.score-a.score||a.camp.name.localeCompare(b.camp.name,'th')).slice(0,3);$('top3Context').textContent=`${province==='ALL'?'ลานที่เลือกจากทุกจังหวัด':'จังหวัด'+province} • ${$('startDate').value} ถึง ${$('endDate').value} • ประเมินได้ ${best.size} ลาน`;$('top3').innerHTML=top.length?top.map((r,i)=>`<div class="col-md-4"><div class="top3-card ${i===0?'first':''}"><div class="d-flex justify-content-between align-items-start"><div class="top3-rank">${['🥇','🥈','🥉'][i]} #${i+1}</div><div class="top3-score">${r.score}<span class="fs-6 text-secondary">/100</span></div></div><div class="fw-bold mt-2">${escapeHtml(r.camp.name)}</div><div class="small-muted">${escapeHtml(r.camp.province)} • เช้า ${escapeHtml(r.date)}</div><div class="scorebar my-2"><div style="width:${r.score}%"></div></div><div class="small">${scoreLabel(r.score)}</div><div class="mt-2">${tempBlock(r)}</div><div class="small-muted mt-2">ความเชื่อมั่น: ${escapeHtml(r.confidence)}</div><button class="btn btn-sm btn-outline-success mt-2 top3-detail" data-key="${escapeHtml(r.camp.name+'|'+r.camp.province)}" data-date="${r.date}">ดูกราฟรายชั่วโมง</button></div></div>`).join(''):'<div class="col-12 text-secondary py-3">ไม่มีข้อมูลพยากรณ์สำหรับจัดอันดับ</div>';$('top3').querySelectorAll('.top3-detail').forEach(b=>b.addEventListener('click',()=>{const row=rows.find(r=>r.camp.name+'|'+r.camp.province===b.dataset.key&&r.date===b.dataset.date);if(row){showChart(row);$('weatherChart').scrollIntoView({behavior:'smooth',block:'center'})}}))}
-function showChart(row){$('chartTitle').textContent=`รายชั่วโมง • ${row.camp.name} • ${row.date}`;const labels=row.items.map(i=>i.time.slice(11,16));if(chart)chart.destroy();chart=new Chart($('weatherChart'),{type:'line',data:{labels,datasets:[{label:'RH (%)',data:row.items.map(i=>i.rh),borderColor:'#12a88d',yAxisID:'y1',tension:.3},{label:'อุณหภูมิ (°C)',data:row.items.map(i=>i.temp),borderColor:'#ed9b49',yAxisID:'y',tension:.3},{label:'จุดน้ำค้าง (°C)',data:row.items.map(i=>i.dew),borderColor:'#518cd2',yAxisID:'y',tension:.3}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},scales:{y:{position:'left',title:{display:true,text:'°C'}},y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false},title:{display:true,text:'RH %'}}}}})}
+function showChart(row){
+ currentRow=row;
+ const dark=document.documentElement.dataset.theme==='dark';
+ const C=dark?{txt:'#a9c0cd',grid:'#ffffff14',tipBg:'#02080d',tipTxt:'#e6f0f5',pt:'#0f2230'}:{txt:'#5a7284',grid:'#10283a14',tipBg:'#0a2236',tipTxt:'#ffffff',pt:'#ffffff'};
+ $('chartTitle').textContent=`รายชั่วโมง • ${row.camp.name} • ${row.date}`;
+ const labels=row.items.map(i=>i.time.slice(11,16));
+ if(chart)chart.destroy();
+ Chart.defaults.font.family="'Noto Sans Thai',system-ui,sans-serif";
+ const grad=(top,bot)=>ctx=>{const a=ctx.chart.chartArea;if(!a)return top;const g=ctx.chart.ctx.createLinearGradient(0,a.top,0,a.bottom);g.addColorStop(0,top);g.addColorStop(1,bot);return g};
+ const dot=(c)=>({pointRadius:4,pointHoverRadius:7,pointBackgroundColor:C.pt,pointBorderColor:c,pointBorderWidth:2.5,pointHoverBorderWidth:3});
+ chart=new Chart($('weatherChart'),{type:'line',data:{labels,datasets:[
+  {label:'ความชื้น RH (%)',data:row.items.map(i=>i.rh),yAxisID:'y1',borderColor:'#14b8a0',borderWidth:2.5,fill:true,backgroundColor:grad(dark?'#14b8a066':'#14b8a050','#14b8a000'),tension:.42,pointRadius:0,pointHoverRadius:6,pointHoverBackgroundColor:'#14b8a0',pointHoverBorderColor:C.pt,pointHoverBorderWidth:2,order:3,spanGaps:true},
+  {label:'อุณหภูมิ (°C)',data:row.items.map(i=>i.temp),yAxisID:'y',borderColor:'#f59a3c',borderWidth:3,fill:'+1',backgroundColor:dark?'#f59a3c2e':'#f59a3c26',tension:.42,...dot('#f59a3c'),order:1,spanGaps:true},
+  {label:'จุดน้ำค้าง (°C)',data:row.items.map(i=>i.dew),yAxisID:'y',borderColor:'#4a90e2',borderWidth:2.5,borderDash:[7,5],tension:.42,...dot('#4a90e2'),pointRadius:3,order:2,spanGaps:true}
+ ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},animation:{duration:900,easing:'easeOutQuart'},layout:{padding:{top:2,right:2,left:0}},
+ plugins:{legend:{position:'top',align:'start',labels:{usePointStyle:true,pointStyle:'circle',boxWidth:8,boxHeight:8,padding:14,color:C.txt,font:{size:11,weight:'600'}}},
+  tooltip:{backgroundColor:C.tipBg,titleColor:C.tipTxt,bodyColor:C.tipTxt,footerColor:'#7fe9cf',padding:12,cornerRadius:14,boxPadding:5,usePointStyle:true,titleFont:{weight:'700',size:12},bodyFont:{size:12},footerFont:{size:11,weight:'600'},displayColors:true,
+   callbacks:{title:i=>'เวลา '+i[0].label+' น.',label:c=>' '+c.dataset.label.split(' (')[0]+': '+(c.parsed.y===null?'—':c.parsed.y.toFixed(1))+(c.dataset.yAxisID==='y1'?'%':'°C'),footer:items=>{const t=items.find(i=>i.datasetIndex===1),d=items.find(i=>i.datasetIndex===2);return t&&d&&t.parsed.y!==null&&d.parsed.y!==null?'ห่างจุดน้ำค้าง '+(t.parsed.y-d.parsed.y).toFixed(1)+'°C':''}}}},
+ scales:{x:{grid:{display:false},border:{display:false},ticks:{color:C.txt,font:{size:11,weight:'600'}}},
+  y:{position:'left',grace:'10%',border:{display:false},grid:{color:C.grid,borderDash:[4,4]},ticks:{color:C.txt,font:{size:11},callback:v=>v+'°',maxTicksLimit:5}},
+  y1:{position:'right',min:0,max:100,border:{display:false},grid:{drawOnChartArea:false},ticks:{color:C.txt,font:{size:11},callback:v=>v+'%',stepSize:25}}}}});
+ const sp=row.items.filter(i=>i.temp!==null&&i.dew!==null).map(i=>({s:i.temp-i.dew,t:i.time.slice(11,16)}));
+ const mn=sp.length?sp.reduce((a,b)=>b.s<a.s?b:a):null;
+ const rhs=row.items.map(i=>i.rh).filter(v=>v!==null),rhMax=rhs.length?Math.max(...rhs):null;
+ $('chartInfo').innerHTML=(mn?`<span>💧 ห่างจุดน้ำค้างน้อยสุด ${mn.s.toFixed(1)}°C (${mn.t} น.)</span>`:'')+`<span>RH เฉลี่ย ${fmt(row.rh)}%${rhMax!==null?' • สูงสุด '+Math.round(rhMax)+'%':''}</span><span>🌬️ ลม ${fmt(row.wind,1)} m/s</span><span>🌧️ ฝน ${fmt(row.rain,1)} mm</span>`;
+}
 
 // Forecast polling: the initial scope is ALL camps in the locally stored catalog,
 // not every physical campsite in Thailand. Polling runs only while the page is open.
@@ -584,6 +664,23 @@ $('refreshNow').addEventListener('click',()=>refreshForecast('manual'));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
 window.addEventListener('scroll',()=>document.getElementById('appHeader').classList.toggle('scrolled',window.scrollY>8),{passive:true});
 if(navigator.vibrate)document.querySelectorAll('.bottom-tab').forEach(b=>b.addEventListener('click',()=>navigator.vibrate(8)));
+
+var currentRow=null;
+var themePref=localStorage.getItem('mist_theme')||'auto';
+function thHour(){return +new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Bangkok',hour:'2-digit',hourCycle:'h23'}).format(new Date())}
+function applyTheme(){
+ const h=thHour(),dark=themePref==='dark'||(themePref==='auto'&&(h>=18||h<6)),root=document.documentElement,changed=(root.dataset.theme==='dark')!==dark;
+ root.dataset.theme=dark?'dark':'light';root.dataset.bsTheme=dark?'dark':'light';
+ const mt=document.querySelector('meta[name=theme-color]');if(mt)mt.content=dark?'#06121b':'#0a2236';
+ $('themeBtn').innerHTML=dark?'<i class="bi bi-sun-fill"></i>':'<i class="bi bi-moon-stars-fill"></i>';
+ document.querySelectorAll('#themeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.themePref===themePref));
+ if(changed){if(currentRow)showChart(currentRow);if(typeof campMap!=='undefined'&&campMap)setTimeout(()=>campMap.invalidateSize(),50)}
+}
+function setThemePref(p){themePref=p;try{localStorage.setItem('mist_theme',p)}catch{}applyTheme()}
+$('themeBtn').addEventListener('click',()=>setThemePref(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+document.querySelectorAll('#themeSeg button').forEach(b=>b.addEventListener('click',()=>setThemePref(b.dataset.themePref)));
+setInterval(()=>{if(themePref==='auto')applyTheme()},60000);
+applyTheme();
 showTab('home');
 refreshForecast('initial');
 </script>

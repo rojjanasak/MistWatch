@@ -292,7 +292,7 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
  <div class="hero">
   <div class="hero-eyebrow">Sea of Mist Forecast</div>
   <h1>วางแผนกางเต็นท์<br>ชมทะเลหมอกให้ถูกเช้า</h1>
-  <div class="hero-score"><div><div class="lbl">คะแนนสูงสุดในช่วงที่เลือก</div><div class="metric" id="bestScore">—</div><div class="best-name" id="bestName">รอโหลดข้อมูล</div></div><i class="bi bi-cloud-haze2-fill hero-ico"></i></div>
+  <div class="hero-score"><div><div class="lbl">ลานแนะนำอันดับ 1 • คะแนนรวม</div><div class="metric" id="bestScore">—</div><div class="best-name" id="bestName">รอโหลดข้อมูล</div></div><i class="bi bi-cloud-haze2-fill hero-ico"></i></div>
   <div class="hero-stats"><div><b id="coverage">—</b><span>ช่วงวันที่ประเมินได้ (สูงสุด 16 วัน)</span></div><div><b id="campCount">—</b><span>ลานที่เปรียบเทียบ</span></div></div>
   <div class="hero-tz"><i class="bi bi-clock me-1"></i>เวลาไทย Asia/Bangkok • คะแนน 0–100 ไม่ใช่ % โอกาสจริง</div>
  </div>
@@ -304,7 +304,7 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
  <div class="small-muted mb-4 px-1">จัดอันดับด้วยคะแนนอากาศ + ตัวชี้วัดภูมิประเทศ + สถานะถนนที่ผู้ใช้บันทึก • ไม่ใช่เปอร์เซ็นต์โอกาสเห็นหมอกจริง</div>
 
  <button class="collapse-head" id="rankToggle" aria-expanded="false" aria-controls="rankWrap"><span>อันดับลานและเช้าที่เหมาะสม<small id="rankCount">แตะเพื่อดูรายการทั้งหมด</small></span><i class="bi bi-chevron-down"></i></button>
- <div class="rank-wrap" id="rankWrap"><div class="small-muted mb-2 px-1">แตะการ์ดเพื่อดูกราฟ • กด “แผนที่” เพื่อไปยังตำแหน่งลาน</div><table class="rank-table"><thead><tr><th>ลาน / วันที่</th><th>คะแนน</th><th>ความเชื่อมั่น*</th><th>อุณหภูมิ</th><th>สภาพอากาศ</th><th>RH</th><th>ลม</th><th>ฝน</th><th>คำแนะนำ</th></tr></thead><tbody id="results"><tr><td colspan="9">เลือกวันที่และกดตรวจพยากรณ์จริง</td></tr></tbody></table></div>
+ <div class="rank-wrap" id="rankWrap"><div class="small-muted mb-2 px-1">แตะการ์ดเพื่อดูกราฟ • กด “แผนที่” เพื่อไปยังตำแหน่งลาน • เรียงตามคะแนนอากาศล้วน</div><table class="rank-table"><thead><tr><th>ลาน / วันที่</th><th>คะแนน</th><th>ความเชื่อมั่น*</th><th>อุณหภูมิ</th><th>สภาพอากาศ</th><th>RH</th><th>ลม</th><th>ฝน</th><th>คำแนะนำ</th></tr></thead><tbody id="results"><tr><td colspan="9">เลือกวันที่และกดตรวจพยากรณ์จริง</td></tr></tbody></table></div>
 
  <div class="sec mt-2"><div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-2"><h5 class="fw-bold mb-0" id="chartTitle" style="font-size:1rem">ข้อมูลรายชั่วโมง</h5><span class="small-muted">RH • อุณหภูมิ • จุดน้ำค้าง</span></div><div class="chart-wrap"><canvas id="weatherChart"></canvas></div><div class="chart-info" id="chartInfo"></div></div>
 
@@ -713,6 +713,16 @@ function goToCamp(key){
  },160);
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-map]');if(!b)return;e.preventDefault();e.stopPropagation();goToCamp(b.dataset.map)},true);
+
+// Hero + Top 3 share ONE ranking source (Smart Ranking) so #1 always matches.
+function updateHero(){
+ if(!lastRows.length)return;
+ const top=v2Best(lastRows)[0],sc=$('bestScore'),nm=$('bestName'),txt=top?v2RankScore(top)+'/100':'—';
+ if(sc.textContent!==txt){sc.textContent=txt;sc.classList.remove('pop');void sc.offsetWidth;sc.classList.add('pop')}
+ nm.textContent=top?top.camp.name+' • '+top.date:'ไม่มีลานผ่านตัวกรอง';
+}
+const _v2r=v2Render;v2Render=function(){_v2r();updateHero()};
+renderTop3=function(){v2Render()};
 showTab('home');
 refreshForecast('initial');
 </script>

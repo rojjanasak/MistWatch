@@ -133,8 +133,8 @@ details.about p{font-size:.82rem;color:#445d6e;line-height:1.65}
 .app-footer{text-align:center;font-size:.72rem;color:var(--mute);padding:6px 0 10px}
 
 /* ---------- Bottom nav ---------- */
-.bottom-nav{position:fixed;z-index:1100;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:min(calc(100% - 28px),440px);height:var(--nav);padding:6px;display:grid;grid-template-columns:repeat(3,1fr);background:#ffffffd9;backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6);border:1px solid #ffffffcc;border-radius:26px;box-shadow:0 18px 40px -12px #0a223466,0 2px 8px #0a223414;--i:0}
-.nav-indicator{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/3);border-radius:20px;background:linear-gradient(145deg,#16c3a0,#0b8a78);box-shadow:0 8px 18px -6px #0b8a78aa;transform:translateX(calc(var(--i)*100%));transition:transform .45s cubic-bezier(.34,1.4,.5,1)}
+.bottom-nav{position:fixed;z-index:1100;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:min(calc(100% - 28px),480px);height:var(--nav);padding:6px;display:grid;grid-template-columns:repeat(4,1fr);background:#ffffffd9;backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6);border:1px solid #ffffffcc;border-radius:26px;box-shadow:0 18px 40px -12px #0a223466,0 2px 8px #0a223414;--i:0}
+.nav-indicator{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/4);border-radius:20px;background:linear-gradient(145deg,#16c3a0,#0b8a78);box-shadow:0 8px 18px -6px #0b8a78aa;transform:translateX(calc(var(--i)*100%));transition:transform .45s cubic-bezier(.34,1.4,.5,1)}
 .bottom-tab{position:relative;z-index:1;border:0;background:transparent;color:#7a8f9e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:.7rem;font-weight:700;border-radius:20px;transition:color .3s,transform .2s var(--ease)}
 .bottom-tab i{font-size:1.32rem;line-height:1.1;transition:transform .35s cubic-bezier(.34,1.6,.5,1)}
 .bottom-tab:active{transform:scale(.92)}
@@ -281,6 +281,31 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
 [data-theme=dark] .base-switch{background:#0f2230e6}
 [data-theme=dark] .base-switch button{color:#9db4c2}
 [data-theme=dark] .base-switch button.on{color:#fff}
+
+.hero.bloom{background:linear-gradient(145deg,#e0529b 0%,#a23fb0 55%,#3d2b7e 100%);box-shadow:0 22px 40px -18px #7b2f9faa}
+.bl-row{display:grid;grid-template-columns:78px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.bl-row:last-child{border-bottom:0}
+.bl-rows{max-height:420px;overflow:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+.bl-date b{display:block;font-size:.88rem;line-height:1.2}
+.bl-date small{font-size:.68rem;color:var(--mute)}
+.bl-bar{height:8px;border-radius:8px;background:#f6e3ee;overflow:hidden}
+.bl-bar>div{height:100%;border-radius:8px;background:linear-gradient(90deg,#f19ac6,#e0529b)}
+.bl-sub{display:block;margin-top:4px;font-size:.7rem;color:#587083;line-height:1.3}
+.bl-temp{text-align:right;min-width:62px}
+.bl-temp b{display:block;font-size:1.05rem;color:#3a55c4}
+.bl-temp small{font-size:.62rem;color:var(--mute);display:block;line-height:1.25}
+.bl-row.top{background:linear-gradient(90deg,#fde8f2,transparent);margin:0 -8px;padding-left:8px;padding-right:8px;border-radius:14px}
+.bl-wk{display:inline-block;font-size:.6rem;font-weight:800;background:#e3f7f1;color:#0b8a78;border-radius:999px;padding:1px 7px;margin-left:4px}
+[data-theme=dark] .bl-bar{background:#2a2038}
+[data-theme=dark] .bl-sub{color:#9db4c2}
+[data-theme=dark] .bl-temp b{color:#9bb0ff}
+[data-theme=dark] .bl-row.top{background:linear-gradient(90deg,#3a1d33,transparent)}
+[data-theme=dark] .bl-wk{background:#0f3d38;color:#4fe0c0}
+.bottom-tab{font-size:.66rem}
+
+.base-note{position:absolute;z-index:600;left:12px;right:12px;bottom:calc(var(--nav) + 84px + env(safe-area-inset-bottom));background:#fff6dd;border:1px solid #ffe2a4;color:#6b5420;border-radius:14px;padding:8px 12px;font-size:.72rem;line-height:1.4;box-shadow:0 8px 24px -10px #0a223466}
+.base-note[hidden]{display:none}
+[data-theme=dark] .base-note{background:#3a2e12;border-color:#6b5420;color:#f2dca0}
 @media(max-width:380px){.metric{font-size:2.8rem}.hero h1{font-size:1.18rem}}
 @media(min-width:900px){body{padding-bottom:130px}}
 </style></head><body>
@@ -325,7 +350,44 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
 </div></section>
 
 <!-- ============ MAPS ============ -->
-<section id="view-maps" class="app-view"><div class="map-shell"><div class="map-legend"><strong>คะแนนทะเลหมอก /100</strong><div><span class="legend-dot" style="background:#17a875"></span>75–100 สูง</div><div><span class="legend-dot" style="background:#e3aa30"></span>55–74 ดี</div><div><span class="legend-dot" style="background:#e98237"></span>35–54 ปานกลาง</div><div><span class="legend-dot" style="background:#db5361"></span>0–34 ต่ำ</div><div><span class="legend-dot" style="background:#77899b"></span>— ยังไม่ประเมิน</div></div><div class="base-switch" id="baseSwitch" role="group" aria-label="ชนิดแผนที่"><button data-base="street"><i class="bi bi-map"></i>ทั่วไป</button><button data-base="terrain"><i class="bi bi-triangle-half"></i>ภูมิประเทศ</button><button data-base="sat"><i class="bi bi-globe-asia-australia"></i>ดาวเทียม</button></div><div id="campMap"></div></div></section>
+<section id="view-maps" class="app-view"><div class="map-shell"><div class="map-legend"><strong>คะแนนทะเลหมอก /100</strong><div><span class="legend-dot" style="background:#17a875"></span>75–100 สูง</div><div><span class="legend-dot" style="background:#e3aa30"></span>55–74 ดี</div><div><span class="legend-dot" style="background:#e98237"></span>35–54 ปานกลาง</div><div><span class="legend-dot" style="background:#db5361"></span>0–34 ต่ำ</div><div><span class="legend-dot" style="background:#77899b"></span>— ยังไม่ประเมิน</div></div><div class="base-switch" id="baseSwitch" role="group" aria-label="ชนิดแผนที่"><button data-base="street"><i class="bi bi-map"></i>ทั่วไป</button><button data-base="sat"><i class="bi bi-globe-asia-australia"></i>ดาวเทียม</button></div><div class="base-note" id="baseNote" hidden></div><div id="campMap"></div></div></section>
+
+<!-- ============ BLOOM ============ -->
+<section id="view-bloom" class="app-view"><div class="app-content">
+ <div class="live-pill"><span class="live-dot" style="background:#e0529b"></span><span id="bloomStatus" aria-live="polite">พร้อมคำนวณ</span><button class="refresh-btn" id="bloomRefresh" aria-label="คำนวณใหม่" style="background:#fbe6f1;color:#c2307c"><i class="bi bi-arrow-clockwise"></i></button></div>
+ <div class="hero bloom">
+  <div class="hero-eyebrow">Cherry Blossom Forecast</div>
+  <h1>พญาเสือโคร่ง ภูลมโล<br><span style="font-size:.85rem;font-weight:600;opacity:.85">อุทยานแห่งชาติภูหินร่องกล้า • ฤดู <span id="bloomSeason">—</span></span></h1>
+  <div class="hero-score"><div><div class="lbl" id="bloomNowLbl">โอกาสบานวันนี้ (ประมาณ)</div><div class="metric" id="bloomNow">—</div><div class="best-name" id="bloomPhase">กำลังคำนวณ</div></div><i class="bi bi-flower1 hero-ico"></i></div>
+  <div class="hero-stats"><div><b id="bloomPeak">—</b><span>คาดบานสูงสุด</span></div><div><b id="bloomWin">—</b><span>ช่วงแนะนำ (บาน ≥ 60%)</span></div></div>
+  <div class="hero-tz"><i class="bi bi-exclamation-circle me-1"></i>ค่าประมาณจากแบบจำลองเชิงประจักษ์ ไม่ใช่ประกาศของอุทยาน</div>
+ </div>
+ <div class="sec"><div class="sec-title"><span class="ico" style="--c:#e0529b"><i class="bi bi-graph-up"></i></span><div><h3>เส้นโค้งการบานตลอดฤดู</h3><p id="bloomMode">—</p></div></div>
+  <div class="chart-wrap"><canvas id="bloomChart"></canvas></div>
+  <div class="chart-info" id="bloomChips"></div>
+ </div>
+ <div class="sec"><div class="sec-title"><span class="ico" style="--c:#12b392"><i class="bi bi-calendar2-heart"></i></span><div><h3>วันแนะนำไปกางเต็นท์</h3><p>เรียงตามวัน • ★ = ช่วงบานสวยที่สุด • อุณหภูมิคืน/เช้าของวันนั้น</p></div></div>
+  <div id="bloomRows" class="bl-rows"><div class="small-muted">กำลังคำนวณ…</div></div>
+  <div class="v2-note mt-2">อุณหภูมิ “ค่าปกติ” = ค่าเฉลี่ยต่ำสุดของวันนั้นในรอบ 10 ปี ส่วน “พยากรณ์” ใช้ได้เฉพาะ 16 วันข้างหน้า</div>
+ </div>
+ <div class="sec"><div class="sec-title"><span class="ico" style="--c:#7b61ff"><i class="bi bi-pencil-square"></i></span><div><h3>ปรับเทียบจากรายงานจริง</h3><p>ใส่ % การบานที่เห็นจากรูป/ข่าว/เพจอุทยาน แบบจำลองจะขยับให้ตรง</p></div></div>
+  <div class="row g-2 mb-2"><div class="col-6"><label class="form-label">วันที่รายงาน</label><input class="form-control" id="bObsDate" type="date"></div><div class="col-6"><label class="form-label">บานแล้วประมาณ (%)</label><input class="form-control" id="bObsPct" type="number" min="1" max="100" value="40" inputmode="numeric"></div></div>
+  <label class="form-label">ระยะของการบาน</label>
+  <select class="form-select mb-2" id="bObsPhase"><option value="rise">กำลังเพิ่ม (ยังไม่ถึงจุดสูงสุด)</option><option value="peak">บานเต็มที่/สูงสุดแล้ว</option><option value="fall">เลยจุดสูงสุด กำลังร่วงโรย</option></select>
+  <button class="btn btn-outline-primary btn-sm" id="bObsSave">บันทึกรายงาน</button>
+  <div class="small mt-2" id="bObsList"></div>
+ </div>
+ <details class="about"><summary>ที่มาของข้อมูลและข้อจำกัด <i class="bi bi-chevron-down"></i></summary><div class="about-body">
+  <p><strong>ช่วงบานตามปกติ:</strong> ภูลมโลบานราวมกราคมถึงต้นกุมภาพันธ์ ขึ้นกับอากาศ บางปีเริ่มก่อนปลายธันวาคม จุดอ้างอิงที่ใช้ปรับแบบจำลองมี 2 ปีเท่านั้น: ปี 2567 รายงาน 14 ม.ค. ว่าบานราว 40% และอุทยานปิดภูลมโล 5 ก.พ. หลังดอกร่วงโรย • ปี 2568 คาดเริ่มบานกลาง ม.ค. และ 22 ม.ค. แปลง 1–3 เริ่มโรย แปลง 4 สวยที่สุด</p>
+  <p><strong>วิธีคำนวณ:</strong> เส้นฐานเป็นระฆังคว่ำไม่สมมาตร (ขึ้นช้า ลงเร็ว) มียอดประมาณ 26 ม.ค. จากนั้นเลื่อนยอดตาม “ความหนาวสะสมตั้งแต่ 1 พ.ย.” เทียบค่าเฉลี่ย 10 ปีของพิกัดเดียวกัน (Open-Meteo) ครึ่งหนึ่งของส่วนต่าง แปลงเป็นวัน และจำกัดไม่เกิน ±12 วัน ตัวเลขสัมประสิทธิ์เหล่านี้เป็นสมมติฐานของผม ยังไม่ได้ตรวจสอบกับข้อมูลการบานหลายปี</p>
+  <p><strong>ข้อควรรู้:</strong> พื้นที่ขึ้นรถโฟร์วีลเท่านั้น (ตามข่าวปี 2568) และปี 2567 อุทยานเคยปิดภูลมโลเพื่อฟื้นฟู จึงควรตรวจประกาศ ค่ารถ และที่กางเต็นท์กับอุทยาน/ชมรมรถก่อนไป การบานแต่ละแปลงไม่พร้อมกัน</p>
+  <p class="mb-2"><strong>แหล่งอ้างอิง:</strong> <a href="https://www.thaipbs.or.th/news/content/335937" target="_blank" rel="noopener noreferrer">Thai PBS (14 ม.ค. 2567)</a> • <a href="https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/216334" target="_blank" rel="noopener noreferrer">PPTV (ปิดภูลมโล 5 ก.พ. 2567)</a> • <a href="https://www.thansettakij.com/lifestyle/travel-shopping/616658" target="_blank" rel="noopener noreferrer">ฐานเศรษฐกิจ (ม.ค. 2568)</a> • <a href="https://travel.trueid.net/detail/dr1WpxZ7PNM" target="_blank" rel="noopener noreferrer">TrueID Travel (ม.ค. 2568)</a></p>
+  <div class="divider"></div>
+  <label class="form-label">พิกัดอ้างอิงสำหรับดึงอากาศ <span class="fw-normal text-secondary">(ประมาณ — แก้ให้ตรงจุดที่จะไปได้)</span></label>
+  <div class="row g-2"><div class="col"><input class="form-control" id="bLat" type="number" step="any" inputmode="decimal" placeholder="Latitude"></div><div class="col"><input class="form-control" id="bLon" type="number" step="any" inputmode="decimal" placeholder="Longitude"></div></div>
+  <div class="d-flex gap-2 mt-2"><button class="btn btn-outline-success btn-sm" id="bSite">บันทึกพิกัดและคำนวณใหม่</button><button class="btn btn-link btn-sm text-secondary" id="bSiteReset">ค่าเริ่มต้น</button></div>
+ </div></details>
+</div></section>
 
 <!-- ============ SETTINGS ============ -->
 <section id="view-setting" class="app-view"><div class="setting-content">
@@ -333,6 +395,10 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
 
  <div class="sec"><div class="sec-title"><span class="ico" style="--c:#5b6bdf"><i class="bi bi-circle-half"></i></span><div><h3>ธีมแอป</h3><p>อัตโนมัติ = มืดตั้งแต่ 18:00 ถึง 06:00 น. ตามเวลาไทย</p></div></div>
   <div class="seg" id="themeSeg"><button data-theme-pref="auto"><i class="bi bi-magic"></i>อัตโนมัติ</button><button data-theme-pref="light"><i class="bi bi-sun-fill"></i>สว่าง</button><button data-theme-pref="dark"><i class="bi bi-moon-stars-fill"></i>มืด</button></div>
+ </div>
+ <div class="sec"><div class="sec-title"><span class="ico" style="--c:#2f8fd6"><i class="bi bi-globe-asia-australia"></i></span><div><h3>แผนที่ดาวเทียม (Stadia Maps)</h3><p>ใช้ชั้น Alidade Satellite • หากเปิดจากโดเมนอื่นนอกจากเครื่องตัวเอง Stadia อาจต้องใช้ API key (ฟรีสำหรับงานไม่เชิงพาณิชย์ที่ client.stadiamaps.com)</p></div></div>
+  <input class="form-control mb-2" id="stadiaKey" type="text" placeholder="Stadia API key (ถ้ามี)" autocomplete="off" spellcheck="false">
+  <button class="btn btn-outline-primary btn-sm" id="stadiaSave">บันทึกและโหลดแผนที่ใหม่</button>
  </div>
  <div class="sec"><div class="sec-title"><span class="ico" style="--c:#12b392"><i class="bi bi-search"></i></span><div><h3>ตั้งค่าการค้นหา</h3><p>เลือกพื้นที่ วันที่ และช่วงเวลาชมหมอก</p></div></div>
   <label class="form-label">จังหวัด</label><select class="form-select mb-3" id="province"></select>
@@ -404,7 +470,7 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
  </div>
 </div></section>
 
-<nav class="bottom-nav" id="bottomNav" role="tablist" aria-label="เมนูหลัก"><span class="nav-indicator"></span><button class="bottom-tab active" data-tab="home" role="tab" aria-selected="true"><i class="bi bi-house-door-fill"></i>หน้าหลัก</button><button class="bottom-tab" data-tab="maps" role="tab" aria-selected="false"><i class="bi bi-map-fill"></i>แผนที่</button><button class="bottom-tab" data-tab="setting" role="tab" aria-selected="false"><i class="bi bi-gear-fill"></i>ตั้งค่า</button></nav>
+<nav class="bottom-nav" id="bottomNav" role="tablist" aria-label="เมนูหลัก"><span class="nav-indicator"></span><button class="bottom-tab active" data-tab="home" role="tab" aria-selected="true"><i class="bi bi-house-door-fill"></i>หน้าหลัก</button><button class="bottom-tab" data-tab="maps" role="tab" aria-selected="false"><i class="bi bi-map-fill"></i>แผนที่</button><button class="bottom-tab" data-tab="bloom" role="tab" aria-selected="false"><i class="bi bi-flower2"></i>ดอกไม้</button><button class="bottom-tab" data-tab="setting" role="tab" aria-selected="false"><i class="bi bi-gear-fill"></i>ตั้งค่า</button></nav>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 'use strict';
@@ -605,13 +671,17 @@ function toggleFavorite(k){favorites=favorites.includes(k)?favorites.filter(x=>x
 var baseLayer=null;
 var BASE_DEFS={
  street:{url:'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',o:{maxZoom:19,attribution:'© OpenStreetMap contributors'}},
- terrain:{url:'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',o:{maxZoom:17,subdomains:'abc',attribution:'© OpenStreetMap contributors, SRTM | © OpenTopoMap (CC-BY-SA)'}},
- sat:{url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',o:{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics'}}
+ sat:{url:'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}.jpg',o:{maxZoom:20,attribution:'© CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | © <a href="https://www.stadiamaps.com/" target="_blank" rel="noopener noreferrer">Stadia Maps</a> © <a href="https://openmaptiles.org/" target="_blank" rel="noopener noreferrer">OpenMapTiles</a> © OpenStreetMap contributors'}}
 };
+var ESRI_FALLBACK={url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',o:{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics'}};
+function stadiaKey(){try{return (localStorage.getItem('mist_stadia_key')||'').trim()}catch{return ''}}
+function baseNote(t){const n=document.getElementById('baseNote');if(!n)return;n.textContent=t||'';n.hidden=!t}
 function setBase(id){
- if(!BASE_DEFS[id])id='terrain';if(!campMap)return;
- if(baseLayer)campMap.removeLayer(baseLayer);
- const d=BASE_DEFS[id];baseLayer=L.tileLayer(d.url,d.o).addTo(campMap);
+ if(!BASE_DEFS[id])id='street';if(!campMap)return;
+ if(baseLayer)campMap.removeLayer(baseLayer);baseNote('');
+ const d=BASE_DEFS[id],k=stadiaKey();let url=d.url;if(id==='sat'&&k)url+='?api_key='+encodeURIComponent(k);
+ const layer=L.tileLayer(url,d.o).addTo(campMap);baseLayer=layer;
+ if(id==='sat'){let errs=0,done=false;layer.on('tileerror',()=>{errs++;if(errs>=3&&!done&&baseLayer===layer){done=true;campMap.removeLayer(layer);baseLayer=L.tileLayer(ESRI_FALLBACK.url,ESRI_FALLBACK.o).addTo(campMap);baseNote(k?'Stadia ไม่ตอบกลับ (ตรวจ API key/โดเมน) • แสดงภาพดาวเทียม Esri แทน':'Stadia ต้องใช้ API key เมื่อเปิดจากโดเมนอื่น • แสดงภาพดาวเทียม Esri แทน (ใส่ key ได้ที่ ตั้งค่า > แผนที่ดาวเทียม)')}})}
  const el=document.getElementById('campMap');el.classList.remove('base-street','base-terrain','base-sat');el.classList.add('base-'+id);
  try{localStorage.setItem('mist_base',id)}catch{}
  document.querySelectorAll('#baseSwitch button').forEach(b=>b.classList.toggle('on',b.dataset.base===id));
@@ -619,7 +689,7 @@ function setBase(id){
 function renderMap(){
  const target=$('campMap');
  if(typeof L==='undefined'){target.textContent='ไม่สามารถโหลดแผนที่ได้ กรุณาเชื่อมต่ออินเทอร์เน็ต';return;}
- if(!campMap){campMap=L.map('campMap',{zoomControl:false}).setView([17.5,101],7);L.control.zoom({position:'topright'}).addTo(campMap);setBase((function(){try{return localStorage.getItem('mist_base')}catch{return null}})()||'terrain');markers=L.layerGroup().addTo(campMap);}
+ if(!campMap){campMap=L.map('campMap',{zoomControl:false}).setView([17.5,101],7);L.control.zoom({position:'topright'}).addTo(campMap);setBase((function(){try{return localStorage.getItem('mist_base')}catch{return null}})()||'street');markers=L.layerGroup().addTo(campMap);}
  markers.clearLayers();markerByKey={};const province=$('province').value;const subset=camps.filter(c=>province==='ALL'||c.province===province||campKey(c)===window.__focusKey);const bounds=[];
  const best=new Map();for(const r of lastRows){const key=campKey(r.camp);if(!best.has(key)||r.score>best.get(key).score)best.set(key,r)}
  for(const c of subset){if(!Number.isFinite(+c.lat)||!Number.isFinite(+c.lon))continue;
@@ -652,11 +722,12 @@ $('province').addEventListener('change',()=>{renderMap()});
 
 function showTab(tab){
  activeTab=tab;if(tab!=='maps')window.__focusKey=null;
- for(const name of ['home','maps','setting'])$('view-'+name).classList.toggle('active',name===tab);
+ for(const name of ['home','maps','bloom','setting'])$('view-'+name).classList.toggle('active',name===tab);
  document.querySelectorAll('.bottom-tab').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on));});
  if(tab==='maps')setTimeout(()=>{renderMap();campMap?.invalidateSize()},80);
+ if(tab==='bloom')setTimeout(()=>{window.bloomOpen&&bloomOpen()},60);
  window.scrollTo({top:0,behavior:'instant'});
- document.getElementById('bottomNav').style.setProperty('--i',['home','maps','setting'].indexOf(tab));
+ document.getElementById('bottomNav').style.setProperty('--i',['home','maps','bloom','setting'].indexOf(tab));
 }
 document.querySelectorAll('.bottom-tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 $('openSettings').addEventListener('click',()=>showTab('setting'));
@@ -710,7 +781,7 @@ function applyTheme(){
  const mt=document.querySelector('meta[name=theme-color]');if(mt)mt.content=dark?'#06121b':'#0a2236';
  $('themeBtn').innerHTML=dark?'<i class="bi bi-sun-fill"></i>':'<i class="bi bi-moon-stars-fill"></i>';
  document.querySelectorAll('#themeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.themePref===themePref));
- if(changed){if(currentRow)showChart(currentRow);if(typeof campMap!=='undefined'&&campMap)setTimeout(()=>campMap.invalidateSize(),50)}
+ if(changed){if(currentRow)showChart(currentRow);if(activeTab==='bloom'&&window.renderBloom)renderBloom();if(typeof campMap!=='undefined'&&campMap)setTimeout(()=>campMap.invalidateSize(),50)}
 }
 function setThemePref(p){themePref=p;try{localStorage.setItem('mist_theme',p)}catch{}applyTheme()}
 $('themeBtn').addEventListener('click',()=>setThemePref(document.documentElement.dataset.theme==='dark'?'light':'dark'));
@@ -746,6 +817,149 @@ function updateHero(){
 const _v2r=v2Render;v2Render=function(){_v2r();updateHero()};
 renderTop3=function(){v2Render()};
 document.querySelectorAll('#baseSwitch button').forEach(b=>b.addEventListener('click',()=>setBase(b.dataset.base)));
+// ===================== Bloom forecast mode (พญาเสือโคร่ง ภูลมโล) =====================
+const BLOOM={lat:17.04,lon:101.07,sr:9.5,sf:6.5,thr:60};   // lat/lon are APPROXIMATE and user-editable
+const DAYMS=86400000;
+const dn=iso=>Math.round(Date.UTC(+iso.slice(0,4),+iso.slice(5,7)-1,+iso.slice(8,10))/DAYMS);
+const isoOf=n=>new Date(n*DAYMS).toISOString().slice(0,10);
+const thD=n=>new Date(n*DAYMS+12*3600000).toLocaleDateString('th-TH',{day:'numeric',month:'short',timeZone:'UTC'});
+const thW=n=>new Date(n*DAYMS+12*3600000).toLocaleDateString('th-TH',{weekday:'short',timeZone:'UTC'});
+let bloomSite=storeGet('bloom_site',null)||{lat:BLOOM.lat,lon:BLOOM.lon};
+let bloomObs=storeGet('bloom_obs',[]);
+let bloomState={shift:0,applied:false,info:'',clim:null,fc:null,busy:false,loadedFor:'',chart:null};
+function bloomYear(){const t=thailandToday(),y=+t.slice(0,4),m=+t.slice(5,7);return m>=3?y+1:y}
+function bloomPct(n,P){const x=n-P,sg=x<0?BLOOM.sr:BLOOM.sf;return 100*Math.exp(-0.5*(x/sg)*(x/sg))}
+function obsToP(o){const d=dn(o.date),p=Math.min(Math.max(+o.pct,1),100)/100;if(o.phase==='peak'||p>=.99)return d;const k=Math.sqrt(-2*Math.log(p));return o.phase==='fall'?d-BLOOM.sf*k:d+BLOOM.sr*k}
+function latestObs(by){const lo=dn((by-1)+'-12-01'),hi=dn(by+'-03-15');const list=bloomObs.filter(o=>{const d=dn(o.date);return d>=lo&&d<=hi}).sort((a,b)=>a.date<b.date?1:-1);return list[0]||null}
+function bloomPhase(pct,n,P){
+ if(pct<5)return n<P?'ยังไม่บาน':'หมดฤดูแล้ว';
+ if(n<P)return pct<25?'เริ่มออกดอก':pct<60?'กำลังทยอยบาน':pct<85?'บานมาก':'บานสะพรั่งเต็มที่';
+ return pct>=85?'บานสะพรั่งเต็มที่':pct>=60?'บานมาก (เริ่มทยอยโรย)':pct>=25?'เริ่มโรย':'ใกล้หมดฤดู';
+}
+function setBloomStatus(t){$('bloomStatus').textContent=t}
+
+function buildClim(d){
+ const T=d.time,M=d.temperature_2m_mean,N=d.temperature_2m_min,seasons={},tmin={};
+ for(let i=0;i<T.length;i++){
+  const iso=T[i],y=+iso.slice(0,4),m=+iso.slice(5,7);if(m>2&&m<11)continue;
+  const sy=m>=11?y:y-1,idx=dn(iso)-dn(sy+'-11-01');if(idx<0||idx>119)continue;
+  if(!seasons[sy])seasons[sy]=new Array(120).fill(null);
+  if(M[i]!==null&&M[i]!==undefined)seasons[sy][idx]=M[i];
+  if(N[i]!==null&&N[i]!==undefined){const k=iso.slice(5);(tmin[k]=tmin[k]||[]).push(N[i])}
+ }
+ const ci=Object.values(seasons).map(arr=>{let acc=0;return arr.map(t=>{if(t===null)return null;acc+=Math.max(0,15-t);return acc})});
+ const mean=Array.from({length:120},(_,i)=>{const v=ci.map(o=>o[i]).filter(x=>x!==null);return v.length>=4?v.reduce((a,b)=>a+b,0)/v.length:null});
+ const tm={};for(const k in tmin)tm[k]=tmin[k].reduce((a,b)=>a+b,0)/tmin[k].length;
+ return {mean,tmin:tm,seasons:ci.length};
+}
+function currentCI(f){
+ const today=thailandToday(),y=+today.slice(0,4),m=+today.slice(5,7);
+ if(!(m>=11||m<=2))return null;
+ const sy=m>=11?y:y-1,s0=dn(sy+'-11-01');if(dn(f.time[0])>s0)return null;
+ let acc=0,last=-1;
+ for(let i=0;i<f.time.length;i++){const idx=dn(f.time[i])-s0;if(idx<0)continue;if(idx>119)break;const t=f.temperature_2m_mean[i];if(t===null||t===undefined)continue;acc+=Math.max(0,15-t);last=idx}
+ return last<0?null:{acc,idx:last};
+}
+async function loadBloomWeather(force){
+ if(bloomState.busy)return;
+ const sig=bloomSite.lat+','+bloomSite.lon+'|'+thailandToday();
+ if(!force&&bloomState.loadedFor===sig)return;
+ bloomState.busy=true;$('bloomRefresh').classList.add('spin');setBloomStatus('กำลังดึงสถิติอากาศ 10 ปีและพยากรณ์ล่าสุด…');
+ try{
+  const today=thailandToday(),y=+today.slice(0,4),m=+today.slice(5,7),endY=m>=3?y:y-1;
+  const q=`latitude=${bloomSite.lat}&longitude=${bloomSite.lon}`;
+  const cU=`https://archive-api.open-meteo.com/v1/archive?${q}&start_date=${endY-10}-11-01&end_date=${endY}-02-28&daily=temperature_2m_mean,temperature_2m_min&timezone=Asia%2FBangkok`;
+  const fU=`https://api.open-meteo.com/v1/forecast?${q}&daily=temperature_2m_min,temperature_2m_mean,wind_speed_10m_max,precipitation_sum&past_days=92&forecast_days=16&wind_speed_unit=ms&timezone=Asia%2FBangkok`;
+  const [cr,fr]=await Promise.all([fetch(cU),fetch(fU)]);
+  let clim=null,fc=null;
+  if(cr.ok){const j=await cr.json();if(j.daily&&j.daily.time)clim=buildClim(j.daily)}
+  if(fr.ok){const j=await fr.json();if(j.daily&&j.daily.time)fc=j.daily}
+  if(!clim&&!fc)throw Error('ไม่สามารถดึงข้อมูลอากาศ');
+  bloomState.clim=clim;bloomState.fc=fc;bloomState.shift=0;bloomState.applied=false;bloomState.info='ยังไม่เริ่มฤดูหนาว (พ.ย.–ก.พ.) ใช้ค่าเฉลี่ยจากรายงานย้อนหลัง';
+  if(clim&&fc){
+   const cur=currentCI(fc);
+   if(cur&&clim.mean[cur.idx]!==null&&clim.mean[cur.idx]!==undefined){
+    const A=cur.acc-clim.mean[cur.idx],j=Math.min(cur.idx+14,119);
+    let r=(clim.mean[j]-clim.mean[cur.idx])/Math.max(1,j-cur.idx);if(!(r>0.3))r=0.3;
+    const w=Math.min(1,Math.max(0,(cur.idx-14)/30)),raw=Math.max(-12,Math.min(12,0.5*A/r));
+    bloomState.shift=-raw*w;
+    if(w>0){bloomState.applied=true;bloomState.info=`ความหนาวสะสมตั้งแต่ 1 พ.ย. ${A>=0?'มากกว่า':'น้อยกว่า'}ค่าเฉลี่ย 10 ปี ${Math.abs(A).toFixed(0)} หน่วย → บาน${bloomState.shift<=0?'เร็วขึ้น':'ช้าลง'}ประมาณ ${Math.abs(bloomState.shift).toFixed(1)} วัน`}
+    else bloomState.info='ฤดูหนาวเพิ่งเริ่ม ข้อมูลยังน้อยเกินไปที่จะปรับ ใช้ค่าเฉลี่ยจากรายงานย้อนหลัง';
+   }
+  }
+  bloomState.loadedFor=sig;
+  setBloomStatus('อัปเดตล่าสุด '+new Date().toLocaleString('th-TH',{timeZone:'Asia/Bangkok'})+(clim?` • สถิติ ${clim.seasons} ฤดู`:' • ไม่มีสถิติย้อนหลัง'));
+ }catch(e){setBloomStatus('ดึงข้อมูลอากาศไม่สำเร็จ: '+e.message+' • แสดงค่าเฉลี่ยจากรายงานย้อนหลัง')}
+ finally{bloomState.busy=false;$('bloomRefresh').classList.remove('spin');renderBloom()}
+}
+
+function renderBloom(){
+ const by=bloomYear(),start=dn((by-1)+'-12-15'),end=dn(by+'-02-28'),days=[];
+ for(let n=start;n<=end;n++)days.push(n);
+ const Pbase=dn(by+'-01-26'),todayN=dn(thailandToday()),obs=latestObs(by);
+ let P=Pbase+bloomState.shift,unc=10,mode='ค่าเฉลี่ยจากรายงานย้อนหลัง • คลาดเคลื่อนโดยประมาณ ±10 วัน';
+ if(bloomState.applied){unc=8;mode='ปรับตามความหนาวสะสมของฤดูนี้ • คลาดเคลื่อนโดยประมาณ ±8 วัน'}
+ if(obs){const age=Math.abs(todayN-dn(obs.date));P=obsToP(obs);unc=age<=14?4:6;mode=`ปรับตามรายงานจริง ${thD(dn(obs.date))} (${obs.pct}%) • คลาดเคลื่อนโดยประมาณ ±${unc} วัน`}
+ const f=p=>days.map(n=>bloomPct(n,p)),adj=f(P),base=f(Pbase),a=f(P-unc),b=f(P+unc);
+ const hi=adj.map((v,i)=>Math.max(v,a[i],b[i])),lo=adj.map((v,i)=>Math.min(v,a[i],b[i]));
+ const winDays=days.filter((n,i)=>adj[i]>=BLOOM.thr),win=winDays.length?[winDays[0],winDays[winDays.length-1]]:null;
+ // hero
+ $('bloomSeason').textContent='ม.ค.–ก.พ. '+(by+543);
+ $('bloomPeak').textContent=thD(Math.round(P))+' ±'+unc;
+ $('bloomWin').textContent=win?thD(win[0])+' – '+thD(win[1]):'—';
+ const pctNow=bloomPct(todayN,P),inSeason=todayN>=start-30&&todayN<=end+10;
+ if(inSeason){$('bloomNowLbl').textContent='โอกาสบานวันนี้ (ประมาณ)';$('bloomNow').textContent=Math.round(pctNow)+'%';$('bloomPhase').textContent=bloomPhase(pctNow,todayN,P)}
+ else{const left=win?win[0]-todayN:null;$('bloomNowLbl').textContent='ยังไม่ถึงฤดูบาน';$('bloomNow').textContent=left!==null&&left>0?'อีก '+left+' วัน':'—';$('bloomPhase').textContent=left!==null&&left>0?'ถึงช่วงแนะนำ ('+thD(win[0])+')':'ฤดูนี้สิ้นสุดแล้ว'}
+ $('bloomMode').textContent=mode;
+ $('bloomChips').innerHTML=`<span>🌡️ ${escapeHtml(bloomState.info||'—')}</span><span>เส้นส้มประ = วันนี้</span><span>แถบชมพูอ่อน = ช่วงบาน ≥ ${BLOOM.thr}%</span>`;
+ // rows
+ const rows=days.filter((n,i)=>adj[i]>=BLOOM.thr-10);
+ const topSet=new Set(days.map((n,i)=>({n,v:adj[i]})).sort((x,y)=>y.v-x.v).slice(0,3).map(x=>x.n));
+ const fcMap={};if(bloomState.fc){const F=bloomState.fc;F.time.forEach((t,i)=>{fcMap[dn(t)]={t:F.temperature_2m_min[i],w:F.wind_speed_10m_max[i],r:F.precipitation_sum[i]}})}
+ $('bloomRows').innerHTML=rows.length?rows.map(n=>{
+  const pct=bloomPct(n,P),F=fcMap[n],md=isoOf(n).slice(5),ct=bloomState.clim?.tmin?.[md];
+  const night=F&&F.t!==null&&F.t!==undefined?F.t:(ct!==undefined?ct:null),src=F&&F.t!==null&&F.t!==undefined?'พยากรณ์':(ct!==undefined?'ค่าปกติ':'');
+  const g=gearAdvice(night),dow=new Date(n*DAYMS).getUTCDay(),wk=dow===6||dow===0;
+  const extra=F?`<small>ลม ${F.w===null?'—':F.w.toFixed(1)} • ฝน ${F.r===null?'—':F.r.toFixed(0)} มม.${F.r>8?' ⚠️':''}</small>`:'';
+  return `<div class="bl-row ${topSet.has(n)?'top':''}"><div class="bl-date"><b>${thD(n)}</b><small>${thW(n)}${wk?'<span class="bl-wk">สุดสัปดาห์</span>':''}</small></div><div><div class="bl-bar"><div style="width:${pct.toFixed(0)}%"></div></div><span class="bl-sub">${Math.round(pct)}% • ${bloomPhase(pct,n,P)}${topSet.has(n)?' • ★':''}</span></div><div class="bl-temp"><b>${night===null?'—':night.toFixed(0)+'°'}</b><small>${src}${g?' • '+g.i:''}</small>${extra}</div></div>`
+ }).join(''):'<div class="small-muted">ไม่มีวันที่ถึงเกณฑ์ในช่วงนี้</div>';
+ // chart
+ if(!window.Chart)return;
+ const dark=document.documentElement.dataset.theme==='dark',txt=dark?'#a9c0cd':'#5a7284',grid=dark?'#ffffff14':'#10283a14';
+ const todayIdx=days.indexOf(todayN),winI=win?[days.indexOf(win[0]),days.indexOf(win[1])]:null;
+ const marks={id:'bloomMarks',beforeDatasetsDraw(ch){const {ctx,chartArea:ar,scales:{x}}=ch;if(!ar)return;
+  if(winI&&winI[0]>=0&&winI[1]>=0){const x1=x.getPixelForValue(winI[0]),x2=x.getPixelForValue(winI[1]);ctx.save();ctx.fillStyle=dark?'#e0529b22':'#e0529b18';ctx.fillRect(x1,ar.top,x2-x1,ar.bottom-ar.top);ctx.restore()}
+  if(todayIdx>=0){const xt=x.getPixelForValue(todayIdx);ctx.save();ctx.strokeStyle='#f5a524';ctx.lineWidth=2;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(xt,ar.top);ctx.lineTo(xt,ar.bottom);ctx.stroke();ctx.restore()}}};
+ if(bloomState.chart)bloomState.chart.destroy();
+ const grad=ctx=>{const ar=ctx.chart.chartArea;if(!ar)return '#e0529b44';const g=ctx.chart.ctx.createLinearGradient(0,ar.top,0,ar.bottom);g.addColorStop(0,dark?'#e0529b77':'#e0529b66');g.addColorStop(1,'#e0529b00');return g};
+ Chart.defaults.font.family="'Noto Sans Thai',system-ui,sans-serif";
+ bloomState.chart=new Chart($('bloomChart'),{type:'line',plugins:[marks],data:{labels:days.map(thD),datasets:[
+  {label:'ช่วงคาดการณ์',data:hi,borderWidth:0,pointRadius:0,fill:'+1',backgroundColor:dark?'#e0529b22':'#e0529b1c',tension:.35},
+  {label:'_lo',data:lo,borderWidth:0,pointRadius:0,fill:false,tension:.35},
+  {label:'คาดการณ์การบาน (%)',data:adj,borderColor:'#e0529b',borderWidth:3,pointRadius:0,pointHoverRadius:6,tension:.35,fill:true,backgroundColor:grad},
+  {label:'ค่าเฉลี่ยจากรายงานย้อนหลัง',data:base,borderColor:dark?'#9db4c2':'#8aa0af',borderDash:[6,5],borderWidth:2,pointRadius:0,tension:.35,fill:false}
+ ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},animation:{duration:900,easing:'easeOutQuart'},
+  plugins:{legend:{position:'top',align:'start',labels:{usePointStyle:true,pointStyle:'circle',boxWidth:8,boxHeight:8,padding:12,color:txt,font:{size:11,weight:'600'},filter:i=>!i.text.startsWith('_')}},
+   tooltip:{filter:i=>i.datasetIndex>=2,backgroundColor:dark?'#02080d':'#0a2236',titleColor:'#fff',bodyColor:'#fff',padding:12,cornerRadius:14,usePointStyle:true,callbacks:{label:c=>' '+c.dataset.label.replace(/ \(%\)/,'')+': '+Math.round(c.parsed.y)+'%'}}},
+  scales:{x:{grid:{display:false},border:{display:false},ticks:{color:txt,maxTicksLimit:7,font:{size:11,weight:'600'}}},y:{min:0,max:100,border:{display:false},grid:{color:grid,borderDash:[4,4]},ticks:{color:txt,stepSize:25,callback:v=>v+'%',font:{size:11}}}}}});
+}
+function renderBloomObs(){
+ const by=bloomYear();
+ $('bObsList').innerHTML=bloomObs.length?bloomObs.slice().sort((a,b)=>a.date<b.date?1:-1).slice(0,6).map((o,i)=>`<div class="d-flex justify-content-between align-items-center border-bottom py-1"><span>${thD(dn(o.date))} ${+o.date.slice(0,4)+543} • ${escapeHtml(o.pct)}% • ${{rise:'กำลังเพิ่ม',peak:'สูงสุด',fall:'ร่วงโรย'}[o.phase]}</span><button class="btn btn-sm btn-link bObsDel" data-i="${bloomObs.indexOf(o)}">ลบ</button></div>`).join(''):'ยังไม่มีรายงาน';
+ document.querySelectorAll('.bObsDel').forEach(b=>b.onclick=()=>{bloomObs.splice(+b.dataset.i,1);storeSet('bloom_obs',bloomObs);renderBloomObs();renderBloom()});
+}
+function bloomOpen(){renderBloomObs();renderBloom();loadBloomWeather(false)}
+window.bloomOpen=bloomOpen;window.renderBloom=renderBloom;
+$('bObsDate').value=thailandToday();
+$('bLat').value=bloomSite.lat;$('bLon').value=bloomSite.lon;
+$('bloomRefresh').addEventListener('click',()=>loadBloomWeather(true));
+$('bObsSave').addEventListener('click',()=>{const date=$('bObsDate').value,pct=Number($('bObsPct').value),phase=$('bObsPhase').value;if(!date||!Number.isFinite(pct)||pct<1||pct>100){alert('กรุณาเลือกวันที่และใส่เปอร์เซ็นต์ 1–100');return}bloomObs.push({date,pct:Math.round(pct),phase});storeSet('bloom_obs',bloomObs);renderBloomObs();renderBloom()});
+$('bSite').addEventListener('click',()=>{const lat=Number($('bLat').value),lon=Number($('bLon').value);if(!Number.isFinite(lat)||!Number.isFinite(lon)||lat<5||lat>21||lon<97||lon>106){alert('พิกัดต้องอยู่ในประเทศไทย');return}bloomSite={lat,lon};storeSet('bloom_site',bloomSite);bloomState.clim=null;bloomState.fc=null;bloomState.loadedFor='';loadBloomWeather(true)});
+$('bSiteReset').addEventListener('click',()=>{bloomSite={lat:BLOOM.lat,lon:BLOOM.lon};storeSet('bloom_site',bloomSite);$('bLat').value=bloomSite.lat;$('bLon').value=bloomSite.lon;bloomState.loadedFor='';loadBloomWeather(true)});
+// Add Phu Lom Lo to the camp catalog (approximate coordinates) so it can be compared with mist scores & shown on the map
+mergeCamps([{name:'ภูลมโล (พิกัดประมาณ)',province:'พิษณุโลก',lat:BLOOM.lat,lon:BLOOM.lon},{name:'ต้อเซี๊ย ภูหินร่องกล้า',province:'พิษณุโลก',lat:16.983907,lon:101.028765,source:'Google Maps (ผู้ใช้ระบุ)'}]);
+$('stadiaKey').value=stadiaKey();
+$('stadiaSave').addEventListener('click',()=>{try{localStorage.setItem('mist_stadia_key',$('stadiaKey').value.trim())}catch{}setBase('sat');showTab('maps')});
 showTab('home');
 refreshForecast('initial');
 </script>

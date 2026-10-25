@@ -249,7 +249,7 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
 [data-theme=dark] .top3-score,[data-theme=dark] .top3-rank,[data-theme=dark] .rank-table td:nth-child(2) strong{color:#4fe0c0}
 [data-theme=dark] .chip i{color:#4fe0c0}
 [data-theme=dark] .map-legend{background:#0f2230e6;color:var(--ink)}
-[data-theme=dark] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.9) saturate(.75)}
+[data-theme=dark] #campMap.base-street .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.9) saturate(.75)}[data-theme=dark] #campMap.base-terrain .leaflet-tile-pane{filter:brightness(.78) contrast(1.05) saturate(.85)}[data-theme=dark] #campMap.base-sat .leaflet-tile-pane{filter:brightness(.85)}
 [data-theme=dark] #campMap{background:#0b1a26}
 [data-theme=dark] .leaflet-popup-content-wrapper,[data-theme=dark] .leaflet-popup-tip{background:#0f2230;color:var(--ink)}
 [data-theme=dark] .leaflet-bar a{background:#0f2230;color:#e6f0f5;border-color:#1f3646}
@@ -273,6 +273,14 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
 .top3-card .btn+.btn{margin-top:8px!important}
 [data-theme=dark] .collapse-head{background:#0f2230;border-color:#1f3646}
 [data-theme=dark] .map-chip{background:#0f3d38;color:#4fe0c0}
+
+.base-switch{position:absolute;z-index:600;left:12px;bottom:calc(var(--nav) + 30px + env(safe-area-inset-bottom));display:flex;gap:3px;background:#ffffffe6;backdrop-filter:blur(12px);padding:4px;border-radius:18px;box-shadow:0 8px 24px -8px #0a223466}
+.base-switch button{border:0;background:transparent;border-radius:14px;padding:8px 11px;font-size:.72rem;font-weight:700;color:#4d6577;display:flex;align-items:center;gap:5px;transition:all .25s var(--ease)}
+.base-switch button:active{transform:scale(.92)}
+.base-switch button.on{background:linear-gradient(135deg,#17c5a2,#0b8a78);color:#fff;box-shadow:0 6px 14px -6px #0b8a78cc}
+[data-theme=dark] .base-switch{background:#0f2230e6}
+[data-theme=dark] .base-switch button{color:#9db4c2}
+[data-theme=dark] .base-switch button.on{color:#fff}
 @media(max-width:380px){.metric{font-size:2.8rem}.hero h1{font-size:1.18rem}}
 @media(min-width:900px){body{padding-bottom:130px}}
 </style></head><body>
@@ -317,7 +325,7 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
 </div></section>
 
 <!-- ============ MAPS ============ -->
-<section id="view-maps" class="app-view"><div class="map-shell"><div class="map-legend"><strong>คะแนนทะเลหมอก /100</strong><div><span class="legend-dot" style="background:#17a875"></span>75–100 สูง</div><div><span class="legend-dot" style="background:#e3aa30"></span>55–74 ดี</div><div><span class="legend-dot" style="background:#e98237"></span>35–54 ปานกลาง</div><div><span class="legend-dot" style="background:#db5361"></span>0–34 ต่ำ</div><div><span class="legend-dot" style="background:#77899b"></span>— ยังไม่ประเมิน</div></div><div id="campMap"></div></div></section>
+<section id="view-maps" class="app-view"><div class="map-shell"><div class="map-legend"><strong>คะแนนทะเลหมอก /100</strong><div><span class="legend-dot" style="background:#17a875"></span>75–100 สูง</div><div><span class="legend-dot" style="background:#e3aa30"></span>55–74 ดี</div><div><span class="legend-dot" style="background:#e98237"></span>35–54 ปานกลาง</div><div><span class="legend-dot" style="background:#db5361"></span>0–34 ต่ำ</div><div><span class="legend-dot" style="background:#77899b"></span>— ยังไม่ประเมิน</div></div><div class="base-switch" id="baseSwitch" role="group" aria-label="ชนิดแผนที่"><button data-base="street"><i class="bi bi-map"></i>ทั่วไป</button><button data-base="terrain"><i class="bi bi-triangle-half"></i>ภูมิประเทศ</button><button data-base="sat"><i class="bi bi-globe-asia-australia"></i>ดาวเทียม</button></div><div id="campMap"></div></div></section>
 
 <!-- ============ SETTINGS ============ -->
 <section id="view-setting" class="app-view"><div class="setting-content">
@@ -594,10 +602,24 @@ function syncRoad(){$('roadStatus').value=road[campKey(camps[Number($('infoCamp'
 function syncCam(){const url=cams[campKey(camps[Number($('camCamp').value)])]||'';$('camUrl').value=url;$('openCam').href=url||'#';$('openCam').classList.toggle('disabled',!url)}
 function renderFavorites(){$('favoriteList').innerHTML=favorites.length?favorites.map(k=>`<div class="d-flex justify-content-between align-items-center border-bottom py-1"><span>${escapeHtml(k)}</span><button type="button" class="map-chip mini" data-map="${escapeHtml(k)}" aria-label="ดูบนแผนที่"><i class="bi bi-geo-alt-fill"></i></button><button class="btn btn-sm btn-link removeFav" data-key="${escapeHtml(k)}">ลบ</button></div>`).join(''):'ยังไม่มีลานโปรด';document.querySelectorAll('.removeFav').forEach(b=>b.onclick=()=>toggleFavorite(b.dataset.key));}
 function toggleFavorite(k){favorites=favorites.includes(k)?favorites.filter(x=>x!==k):[...favorites,k];storeSet('favorites',favorites);renderFavorites();renderMap()}
+var baseLayer=null;
+var BASE_DEFS={
+ street:{url:'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',o:{maxZoom:19,attribution:'© OpenStreetMap contributors'}},
+ terrain:{url:'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',o:{maxZoom:17,subdomains:'abc',attribution:'© OpenStreetMap contributors, SRTM | © OpenTopoMap (CC-BY-SA)'}},
+ sat:{url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',o:{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics'}}
+};
+function setBase(id){
+ if(!BASE_DEFS[id])id='terrain';if(!campMap)return;
+ if(baseLayer)campMap.removeLayer(baseLayer);
+ const d=BASE_DEFS[id];baseLayer=L.tileLayer(d.url,d.o).addTo(campMap);
+ const el=document.getElementById('campMap');el.classList.remove('base-street','base-terrain','base-sat');el.classList.add('base-'+id);
+ try{localStorage.setItem('mist_base',id)}catch{}
+ document.querySelectorAll('#baseSwitch button').forEach(b=>b.classList.toggle('on',b.dataset.base===id));
+}
 function renderMap(){
  const target=$('campMap');
  if(typeof L==='undefined'){target.textContent='ไม่สามารถโหลดแผนที่ได้ กรุณาเชื่อมต่ออินเทอร์เน็ต';return;}
- if(!campMap){campMap=L.map('campMap',{zoomControl:true}).setView([17.5,101],7);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(campMap);markers=L.layerGroup().addTo(campMap);}
+ if(!campMap){campMap=L.map('campMap',{zoomControl:false}).setView([17.5,101],7);L.control.zoom({position:'topright'}).addTo(campMap);setBase((function(){try{return localStorage.getItem('mist_base')}catch{return null}})()||'terrain');markers=L.layerGroup().addTo(campMap);}
  markers.clearLayers();markerByKey={};const province=$('province').value;const subset=camps.filter(c=>province==='ALL'||c.province===province||campKey(c)===window.__focusKey);const bounds=[];
  const best=new Map();for(const r of lastRows){const key=campKey(r.camp);if(!best.has(key)||r.score>best.get(key).score)best.set(key,r)}
  for(const c of subset){if(!Number.isFinite(+c.lat)||!Number.isFinite(+c.lon))continue;
@@ -723,6 +745,7 @@ function updateHero(){
 }
 const _v2r=v2Render;v2Render=function(){_v2r();updateHero()};
 renderTop3=function(){v2Render()};
+document.querySelectorAll('#baseSwitch button').forEach(b=>b.addEventListener('click',()=>setBase(b.dataset.base)));
 showTab('home');
 refreshForecast('initial');
 </script>

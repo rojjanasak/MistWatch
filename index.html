@@ -817,7 +817,7 @@ applyTheme();
 
 var markerByKey;
 $('rankToggle').addEventListener('click',()=>{const w=$('rankWrap'),open=!w.classList.contains('open');w.classList.toggle('open',open);$('rankToggle').setAttribute('aria-expanded',String(open));if(open)setTimeout(()=>w.scrollIntoView({behavior:'smooth',block:'nearest'}),60)});
-const _rr=renderResults;renderResults=function(rows){_rr(rows);const n=lastRows.length;$('rankCount').textContent=n?`${n} รายการ • แตะเพื่อ${$('rankWrap').classList.contains('open')?'ซ่อน':'ดู'}รายการ`:'แตะเพื่อดูรายการทั้งหมด'};
+const _rr=renderResults;renderResults=function(rows){window.__pin=false;_rr(rows);const n=lastRows.length;$('rankCount').textContent=n?`${n} รายการ • แตะเพื่อ${$('rankWrap').classList.contains('open')?'ซ่อน':'ดู'}รายการ`:'แตะเพื่อดูรายการทั้งหมด'};
 $('rankToggle').addEventListener('click',()=>{const n=lastRows.length;if(n)$('rankCount').textContent=`${n} รายการ • แตะเพื่อ${$('rankWrap').classList.contains('open')?'ซ่อน':'ดู'}รายการ`});
 function goToCamp(key){
  const c=camps.find(x=>campKey(x)===key);if(!c)return;
@@ -840,6 +840,7 @@ function updateHero(){
  if(sc.textContent!==txt){sc.textContent=txt;sc.classList.remove('pop');void sc.offsetWidth;sc.classList.add('pop')}
  nm.textContent=top?top.camp.name+' • '+top.date:'ไม่มีลานผ่านตัวกรอง';
  if(top&&window.renderRain)renderRain(top.camp);
+ if(top&&!window.__pin&&(!currentRow||campKey(currentRow.camp)!==campKey(top.camp)||currentRow.date!==top.date))showChart(top);
 }
 const _v2r=v2Render;v2Render=function(){_v2r();updateHero()};
 renderTop3=function(){v2Render()};
@@ -1021,6 +1022,7 @@ function renderRain(camp){
   scales:{x:{grid:{display:false},border:{display:false},ticks:{color:txt,font:{size:11,weight:'600'},maxRotation:0,autoSkip:true}},y:{position:'left',beginAtZero:true,grace:'10%',border:{display:false},grid:{color:grid,borderDash:[4,4]},ticks:{color:txt,font:{size:11},maxTicksLimit:5}},y1:{position:'right',min:0,max:100,border:{display:false},grid:{drawOnChartArea:false},ticks:{color:txt,font:{size:11},stepSize:25,callback:v=>v+'%'}}}}});
 }
 if(lastRows.length&&window.__lastRainCamp)renderRain(window.__lastRainCamp);
+document.addEventListener('click',e=>{if(e.target.closest('.v2Detail,.top3-detail,tr[data-row]'))window.__pin=true},true);
 showTab('home');
 refreshForecast('initial');
 </script>

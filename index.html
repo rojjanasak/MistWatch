@@ -112,7 +112,7 @@ button,input,select{font-family:inherit}
 .rank-table td:nth-child(5)::before{content:'สภาพอากาศ'}
 .rank-table td:nth-child(6)::before{content:'ความชื้น RH'}
 .rank-table td:nth-child(7)::before{content:'ลม'}
-.rank-table td:nth-child(8)::before{content:'ฝน'}
+.rank-table td:nth-child(8)::before{content:'ฝน (โอกาส • ปริมาณ)'}
 .rank-table td:nth-child(9)::before{content:'คำแนะนำ'}
 .rank-table td:nth-child(9){grid-column:1/-1;padding-top:10px;border-top:1px dashed var(--line)}
 .rank-table td[colspan]{grid-column:1/-1;text-align:center;color:var(--mute);padding:20px 0}
@@ -306,6 +306,28 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
 .base-note{position:absolute;z-index:600;left:12px;right:12px;bottom:calc(var(--nav) + 84px + env(safe-area-inset-bottom));background:#fff6dd;border:1px solid #ffe2a4;color:#6b5420;border-radius:14px;padding:8px 12px;font-size:.72rem;line-height:1.4;box-shadow:0 8px 24px -10px #0a223466}
 .base-note[hidden]{display:none}
 [data-theme=dark] .base-note{background:#3a2e12;border-color:#6b5420;color:#f2dca0}
+
+.rank-table td:nth-child(8){order:1;grid-column:1/-1}
+.rain3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.r-box{border-radius:14px;padding:8px 6px;text-align:center;background:#e6f1fc;min-width:0}
+.r-box span{display:block;font-size:.64rem;font-weight:700;color:#4d6577;white-space:nowrap}
+.r-box b{display:block;font-size:1.15rem;font-weight:800;line-height:1.3;color:#2c6fb8;letter-spacing:-.02em}
+.r-box small{display:block;font-size:.6rem;color:var(--mute);line-height:1.25;min-height:.75rem}
+.rain-v{margin-top:7px;border-radius:12px;padding:7px 10px;font-size:.72rem;line-height:1.45;font-weight:600}
+.rain-v.success{background:#e3f7f1;color:#0b8a78}.rain-v.info{background:#e6f1fc;color:#2c6fb8}.rain-v.warning{background:#fff3dc;color:#8a5d00}.rain-v.danger{background:#fde8ea;color:#b3263b}.rain-v.secondary{background:#f1f6f9;color:#587083}
+.rain-strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -4px 12px;padding:2px 4px;scroll-snap-type:x proximity}
+.rain-strip::-webkit-scrollbar{display:none}
+.rs-card{flex:0 0 76px;scroll-snap-align:start;text-align:center;background:#f1f6f9;border-radius:18px;padding:10px 4px}
+.rs-card b{display:block;font-size:.74rem}
+.rs-ic{font-size:1.5rem;line-height:1.5}
+.rs-p{font-weight:800;font-size:.95rem;color:#2c6fb8}
+.rs-card small{display:block;font-size:.62rem;color:var(--mute);min-height:.8rem}
+.rs-card em{display:block;font-style:normal;font-size:.6rem;font-weight:700;margin-top:3px;color:#587083}
+.rs-card.warning{box-shadow:inset 0 0 0 1.5px #f1c36b}.rs-card.danger{box-shadow:inset 0 0 0 1.5px #e58a95}
+[data-theme=dark] .r-box,[data-theme=dark] .rs-card{background:#16314a}
+[data-theme=dark] .r-box span{color:#a9c0cd}[data-theme=dark] .r-box b,[data-theme=dark] .rs-p{color:#8cc4ee}
+[data-theme=dark] .rain-v.success{background:#0f3d38;color:#4fe0c0}[data-theme=dark] .rain-v.info{background:#16314a;color:#8cc4ee}[data-theme=dark] .rain-v.warning{background:#3a2e12;color:#f2dca0}[data-theme=dark] .rain-v.danger{background:#3d1a22;color:#ff9aa8}[data-theme=dark] .rain-v.secondary{background:#162d3d;color:#9db4c2}
+[data-theme=dark] .rs-card em{color:#9db4c2}
 @media(max-width:380px){.metric{font-size:2.8rem}.hero h1{font-size:1.18rem}}
 @media(min-width:900px){body{padding-bottom:130px}}
 </style></head><body>
@@ -336,6 +358,8 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
  <div id="top3"><div class="col-12 text-secondary py-3 small">ยังไม่มีผลจัดอันดับ</div></div>
  <div class="small-muted mb-4 px-1">จัดอันดับด้วยคะแนนอากาศ + ตัวชี้วัดภูมิประเทศ + สถานะถนนที่ผู้ใช้บันทึก • ไม่ใช่เปอร์เซ็นต์โอกาสเห็นหมอกจริง</div>
 
+ <div class="sec-head"><h2><i class="bi bi-cloud-rain-heavy-fill me-2" style="color:#3b8fd6"></i>พยากรณ์ฝน</h2><span class="tag" id="rainCamp">—</span></div>
+ <div class="sec" id="rainSec"><div class="small-muted mb-2">คืนก่อนเช้าวันที่… (โอกาสฝนสูงสุด • ปริมาณ 18:00–06:00 น.) — เลื่อนดูได้</div><div class="rain-strip" id="rainStrip"><div class="small-muted">รอข้อมูลพยากรณ์…</div></div><div class="chart-wrap" style="height:210px"><canvas id="rainChart"></canvas></div><div class="v2-note mt-2">แท่ง = ฝนรวมทั้งวัน (มม.) • เส้น = โอกาสฝนสูงสุดของวัน (%) จากโมเดล Open-Meteo ไม่ใช่ประกาศกรมอุตุนิยมวิทยา ฝนบนภูเขาคาดการณ์ยาก ควรเช็กเรดาร์ฝนอีกครั้งก่อนออกเดินทาง</div></div>
  <button class="collapse-head" id="rankToggle" aria-expanded="false" aria-controls="rankWrap"><span>อันดับลานและเช้าที่เหมาะสม<small id="rankCount">แตะเพื่อดูรายการทั้งหมด</small></span><i class="bi bi-chevron-down"></i></button>
  <div class="rank-wrap" id="rankWrap"><div class="small-muted mb-2 px-1">แตะการ์ดเพื่อดูกราฟ • กด “แผนที่” เพื่อไปยังตำแหน่งลาน • เรียงตามคะแนนอากาศล้วน</div><table class="rank-table"><thead><tr><th>ลาน / วันที่</th><th>คะแนน</th><th>ความเชื่อมั่น*</th><th>อุณหภูมิ</th><th>สภาพอากาศ</th><th>RH</th><th>ลม</th><th>ฝน</th><th>คำแนะนำ</th></tr></thead><tbody id="results"><tr><td colspan="9">เลือกวันที่และกดตรวจพยากรณ์จริง</td></tr></tbody></table></div>
 
@@ -344,7 +368,7 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
  <details class="about"><summary>วิธีอ่านคะแนนและข้อจำกัด <i class="bi bi-chevron-down"></i></summary><div class="about-body">
   <p>อุณหภูมิแยก 3 ช่วง: <strong>กลางวัน</strong> = ค่าสูงสุด 09:00–18:00 น., <strong>กลางคืน</strong> = ค่าต่ำสุด 18:00 ของวันก่อนหน้าถึง 06:00 ของเช้านั้น (ช่วงที่นอนในเต็นท์ ใช้เลือกถุงนอนและเสื้อผ้า), <strong>เช้าชมหมอก</strong> = ค่าเฉลี่ยในช่วงที่เลือก คำแนะนำถุงนอน/เสื้อผ้าเป็นแนวทางทั่วไป อุณหภูมิจริงบนลานสูงอาจต่ำกว่าพยากรณ์ ควรเผื่อไว้ 2–3°C และสัญลักษณ์ * คือข้อมูลกลางคืนไม่ครบ ส่วนคำว่า หนาว/เย็น/ปานกลาง/ร้อน เป็นเกณฑ์เพื่อการท่องเที่ยว ส่วนคำว่า หนาว/เย็น/ปานกลาง/ร้อน เป็นเกณฑ์เพื่อการท่องเที่ยว ไม่ใช่ค่าดัชนีความรู้สึกจริงหรือประกาศทางการ ระบบใช้ความชื้นสัมพัทธ์ ความต่างอุณหภูมิกับจุดน้ำค้าง ความเร็วลม เมฆต่ำ ฝน และความชื้นจากฝนก่อนหน้า เพื่อสร้าง <strong>Mist Suitability Score</strong> 0–100 จากกฎเชิงประจักษ์เบื้องต้น ไม่ใช่ความน่าจะเป็นเชิงสถิติ จึงไม่ควรตีความคะแนน 80 ว่าจะเกิดทะเลหมอก 80% จริง</p>
   <p><strong>ความเชื่อมั่น*</strong> คือระดับความน่าเชื่อถือของการประเมินจากระยะเวลาล่วงหน้าและความครบถ้วนของตัวแปร ไม่ใช่ช่วงความเชื่อมั่นทางสถิติ และไม่ใช่ความแม่นยำที่ผ่านการตรวจสอบย้อนหลัง</p>
-  <p class="mb-0">ทะเลหมอกต้องอาศัยภูมิประเทศและระดับฐานเมฆที่โมเดลพยากรณ์ทั่วไปอาจไม่ละเอียดพอ จุดที่มีหมอกอาจเป็นหมอกปิดลานแทนที่จะเป็นทะเลหมอกในหุบเขา แนะนำตรวจอีกครั้ง 1–3 วันก่อนเดินทาง และตรวจสภาพทางขึ้นลานกับผู้ดูแลโดยตรง</p>
+  <p><strong>พยากรณ์ฝน:</strong> โอกาสฝนคือค่าสูงสุดรายชั่วโมงในช่วงนั้นจากโมเดลพยากรณ์ ไม่ใช่โอกาสตลอดทั้งช่วง ส่วนปริมาณคือผลรวมรายชั่วโมง ใช้ประกอบการตัดสินใจกางเต็นท์ ไม่ได้นำไปคำนวณในคะแนนหมอกเพิ่ม (คะแนนหมอกยังหักฝนตามสูตรเดิม)</p><p class="mb-0">ทะเลหมอกต้องอาศัยภูมิประเทศและระดับฐานเมฆที่โมเดลพยากรณ์ทั่วไปอาจไม่ละเอียดพอ จุดที่มีหมอกอาจเป็นหมอกปิดลานแทนที่จะเป็นทะเลหมอกในหุบเขา แนะนำตรวจอีกครั้ง 1–3 วันก่อนเดินทาง และตรวจสภาพทางขึ้นลานกับผู้ดูแลโดยตรง</p>
  </div></details>
  <div class="app-footer">Weather data: Open-Meteo • คะแนนไม่ใช่ความน่าจะเป็นจริง</div>
 </div></section>
@@ -395,10 +419,6 @@ body,.live-pill,.chip,.top3-card,.rank-table tr,.sec,.form-control,.form-select,
 
  <div class="sec"><div class="sec-title"><span class="ico" style="--c:#5b6bdf"><i class="bi bi-circle-half"></i></span><div><h3>ธีมแอป</h3><p>อัตโนมัติ = มืดตั้งแต่ 18:00 ถึง 06:00 น. ตามเวลาไทย</p></div></div>
   <div class="seg" id="themeSeg"><button data-theme-pref="auto"><i class="bi bi-magic"></i>อัตโนมัติ</button><button data-theme-pref="light"><i class="bi bi-sun-fill"></i>สว่าง</button><button data-theme-pref="dark"><i class="bi bi-moon-stars-fill"></i>มืด</button></div>
- </div>
- <div class="sec"><div class="sec-title"><span class="ico" style="--c:#2f8fd6"><i class="bi bi-globe-asia-australia"></i></span><div><h3>แผนที่ดาวเทียม (Stadia Maps)</h3><p>ใช้ชั้น Alidade Satellite • หากเปิดจากโดเมนอื่นนอกจากเครื่องตัวเอง Stadia อาจต้องใช้ API key (ฟรีสำหรับงานไม่เชิงพาณิชย์ที่ client.stadiamaps.com)</p></div></div>
-  <input class="form-control mb-2" id="stadiaKey" type="text" placeholder="Stadia API key (ถ้ามี)" autocomplete="off" spellcheck="false">
-  <button class="btn btn-outline-primary btn-sm" id="stadiaSave">บันทึกและโหลดแผนที่ใหม่</button>
  </div>
  <div class="sec"><div class="sec-title"><span class="ico" style="--c:#12b392"><i class="bi bi-search"></i></span><div><h3>ตั้งค่าการค้นหา</h3><p>เลือกพื้นที่ วันที่ และช่วงเวลาชมหมอก</p></div></div>
   <label class="form-label">จังหวัด</label><select class="form-select mb-3" id="province"></select>
@@ -503,7 +523,7 @@ function clamp(v,a,b){return Math.max(a,Math.min(b,v))}function num(v){return v=
 function suitability(h){const rh=num(h.rh),t=num(h.temp),dew=num(h.dew),wind=num(h.wind),cloud=num(h.cloud),rain=num(h.rain),prior=num(h.prior);if([rh,t,dew,wind].some(v=>v===null))return null;const spread=Math.max(0,t-dew);let s=15+clamp((rh-65)/30,0,1)*24+clamp((4-spread)/4,0,1)*29+clamp((5-wind)/5,0,1)*18;s+=cloud===null?0:clamp((cloud-15)/70,0,1)*5;s+=prior===null?0:clamp(prior/6,0,1)*9;s-=rain===null?0:clamp(rain/3,0,1)*25;if(wind>6)s-=clamp((wind-6)*5,0,20);return Math.round(clamp(s,0,100))}
 function confidence(days,missing){let s=days<=2?85:days<=4?73:days<=7?59:days<=10?47:35;s-=missing*8;return s>=75?'สูง (เชิงระบบ)':s>=55?'ปานกลาง':'ต่ำ'}
 function dateRange(start,end){const out=[];let d=new Date(start+'T12:00:00');const last=new Date(end+'T12:00:00');while(d<=last&&out.length<17){out.push(localDate(d));d.setDate(d.getDate()+1)}return out}
-function weatherUrl(c,start,end){const p=new URLSearchParams({latitude:c.lat,longitude:c.lon,hourly:'temperature_2m,relative_humidity_2m,dew_point_2m,wind_speed_10m,cloud_cover_low,precipitation',timezone:'Asia/Bangkok',wind_speed_unit:'ms',start_date:addDaysISO(start,-1),end_date:end,models:'best_match'});return 'https://api.open-meteo.com/v1/forecast?'+p}
+function weatherUrl(c,start,end){const p=new URLSearchParams({latitude:c.lat,longitude:c.lon,hourly:'temperature_2m,relative_humidity_2m,dew_point_2m,wind_speed_10m,cloud_cover_low,precipitation,precipitation_probability',timezone:'Asia/Bangkok',wind_speed_unit:'ms',start_date:addDaysISO(start,-1),end_date:end,models:'best_match'});return 'https://api.open-meteo.com/v1/forecast?'+p}
 async function getCampForecast(c,start,end){const res=await fetch(weatherUrl(c,start,end));if(!res.ok){let msg='HTTP '+res.status;try{const j=await res.json();msg=j.reason||msg}catch{}throw Error(msg)}const data=await res.json();if(!data.hourly||!data.hourly.time)throw Error('API ไม่มีข้อมูลรายชั่วโมง');return data.hourly}
 function summarize(c,h,dates){const hours=h.time||[];const wanted=Number($('hour').value);const now=new Date();const todayStr=localDate(now);const rows=[];for(const day of dates){const items=[];for(let i=0;i<hours.length;i++){const dt=hours[i];if(!dt.startsWith(day))continue;const hr=Number(dt.slice(11,13));if(hr<wanted||hr>=wanted+4)continue;const prevRain=(h.precipitation||[]).slice(Math.max(0,i-12),i).reduce((a,b)=>a+(num(b)||0),0);const obj={time:dt,rh:num(h.relative_humidity_2m?.[i]),temp:num(h.temperature_2m?.[i]),dew:num(h.dew_point_2m?.[i]),wind:num(h.wind_speed_10m?.[i]),cloud:num(h.cloud_cover_low?.[i]),rain:num(h.precipitation?.[i]),prior:prevRain};obj.score=suitability(obj);items.push(obj)}const valid=items.filter(i=>i.score!==null);if(!valid.length)continue;const score=Math.round(valid.reduce((s,i)=>s+i.score,0)/valid.length);const avg=k=>{const v=valid.map(i=>i[k]).filter(x=>x!==null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null};const days=Math.max(0,Math.round((new Date(day+'T12:00:00')-new Date(todayStr+'T12:00:00'))/86400000));const missing=['cloud','rain'].filter(k=>avg(k)===null).length;const dailyTemps=hours.map((dt,i)=>dt.startsWith(day)?num(h.temperature_2m?.[i]):null).filter(v=>v!==null);
  const tempMin=dailyTemps.length?Math.min(...dailyTemps):null;
@@ -513,8 +533,15 @@ function summarize(c,h,dates){const hours=h.time||[];const wanted=Number($('hour
  const nightV=pickT((d,hr)=>(d===prevDay&&hr>=18)||(d===day&&hr<6));
  const dayV=pickT((d,hr)=>d===day&&hr>=9&&hr<18);
  const morV=valid.map(i=>i.temp).filter(x=>x!==null);
+ const pickH=(arr,fn)=>{const v=[];hours.forEach((dt,i)=>{const x=num(arr?.[i]);if(x===null)return;if(fn(dt.slice(0,10),Number(dt.slice(11,13))))v.push(x)});return v};
+ const sumA=a=>a.length?a.reduce((x,y)=>x+y,0):null,mxA=a=>a.length?Math.max(...a):null;
+ const nightF=(d,hr)=>(d===prevDay&&hr>=18)||(d===day&&hr<6);
+ const rainNight=sumA(pickH(h.precipitation,nightF)),pNight=mxA(pickH(h.precipitation_probability,nightF));
+ const pMorn=mxA(pickH(h.precipitation_probability,(d,hr)=>d===day&&hr>=wanted&&hr<wanted+4));
+ const pDay=mxA(pickH(h.precipitation_probability,(d,hr)=>d===day&&hr>=9&&hr<18));
+ const pAll=mxA(pickH(h.precipitation_probability,d=>d===day)),rainDay=sumA(pickH(h.precipitation,d=>d===day));
  const st=a=>a.length?{min:Math.min(...a),max:Math.max(...a),avg:a.reduce((x,y)=>x+y,0)/a.length}:null;
- rows.push({camp:c,date:day,score,tempMin:nightV.length?Math.min(...nightV):tempMin,tempMax,night:st(nightV),dayT:st(dayV),morning:st(morV),nightPartial:nightV.length>0&&nightV.length<12,confidence:confidence(days,missing),rh:avg('rh'),wind:avg('wind'),rain:valid.reduce((s,i)=>s+(i.rain||0),0),items})}return rows}
+ rows.push({camp:c,date:day,score,tempMin:nightV.length?Math.min(...nightV):tempMin,tempMax,rainNight,pNight,pMorn,pDay,pAll,rainDay,night:st(nightV),dayT:st(dayV),morning:st(morV),nightPartial:nightV.length>0&&nightV.length<12,confidence:confidence(days,missing),rh:avg('rh'),wind:avg('wind'),rain:valid.reduce((s,i)=>s+(i.rain||0),0),items})}return rows}
 function temperatureFeel(low,high){
  if(low===null||high===null)return {label:'ไม่มีข้อมูล',emoji:'🌡️',tone:'secondary'};
  if(low<16)return {label:'หนาว',emoji:'🥶',tone:'primary'};
@@ -538,7 +565,7 @@ function tempBlock(r){
 }
 function tempText(r){return r.tempMin===null?'—':`${fmt(r.tempMin,1)}–${fmt(r.tempMax,1)} °C`}
 function scoreLabel(s){return s>=75?'เอื้อต่อหมอกมาก':s>=55?'ค่อนข้างเอื้อ':s>=35?'ปานกลาง':'ไม่ค่อยเอื้อ'}function fmt(n,d=0){return n===null?'—':n.toFixed(d)}
-function renderResults(rows){lastRows=rows.slice().sort((a,b)=>b.score-a.score);$('results').innerHTML=lastRows.length?lastRows.map((r,i)=>`<tr class="pointer" data-row="${i}"><td><strong>${escapeHtml(r.camp.name)}</strong><div class="small-muted">${escapeHtml(r.camp.province)} • ${r.date}</div></td><td style="min-width:110px"><strong>${r.score}/100</strong><div class="scorebar"><div style="width:${r.score}%"></div></div></td><td>${escapeHtml(r.confidence)}</td><td>${tempBlock(r)}</td><td><span class="badge text-bg-${temperatureFeel(r.tempMin,r.tempMax).tone}">${temperatureFeel(r.tempMin,r.tempMax).emoji} ${temperatureFeel(r.tempMin,r.tempMax).label}</span></td><td>${fmt(r.rh)}%</td><td>${fmt(r.wind,1)} m/s</td><td>${fmt(r.rain,1)} mm</td><td><span class="pill bg-light">${scoreLabel(r.score)}</span><button type="button" class="map-chip" data-map="${escapeHtml(campKey(r.camp))}"><i class="bi bi-geo-alt-fill"></i> แผนที่</button></td></tr>`).join(''):'<tr><td colspan="9" class="text-center py-4">ไม่มีข้อมูลในช่วงที่เลือก</td></tr>';$('results').querySelectorAll('tr[data-row]').forEach(tr=>tr.addEventListener('click',()=>showChart(lastRows[Number(tr.dataset.row)])));$('bestScore').textContent=lastRows.length?lastRows[0].score+'/100':'—';$('bestScore').classList.remove('pop');void $('bestScore').offsetWidth;$('bestScore').classList.add('pop');$('bestName').textContent=lastRows.length?lastRows[0].camp.name+' • '+lastRows[0].date:'ไม่มีข้อมูล';$('coverage').textContent=new Set(rows.map(r=>r.date)).size+' วัน';$('campCount').textContent=new Set(rows.map(r=>r.camp.name)).size+' ลาน';if(lastRows.length)showChart(lastRows[0])}
+function renderResults(rows){lastRows=rows.slice().sort((a,b)=>b.score-a.score);$('results').innerHTML=lastRows.length?lastRows.map((r,i)=>`<tr class="pointer" data-row="${i}"><td><strong>${escapeHtml(r.camp.name)}</strong><div class="small-muted">${escapeHtml(r.camp.province)} • ${r.date}</div></td><td style="min-width:110px"><strong>${r.score}/100</strong><div class="scorebar"><div style="width:${r.score}%"></div></div></td><td>${escapeHtml(r.confidence)}</td><td>${tempBlock(r)}</td><td><span class="badge text-bg-${temperatureFeel(r.tempMin,r.tempMax).tone}">${temperatureFeel(r.tempMin,r.tempMax).emoji} ${temperatureFeel(r.tempMin,r.tempMax).label}</span></td><td>${fmt(r.rh)}%</td><td>${fmt(r.wind,1)} m/s</td><td>${rainBlock(r)}</td><td><span class="pill bg-light">${scoreLabel(r.score)}</span><button type="button" class="map-chip" data-map="${escapeHtml(campKey(r.camp))}"><i class="bi bi-geo-alt-fill"></i> แผนที่</button></td></tr>`).join(''):'<tr><td colspan="9" class="text-center py-4">ไม่มีข้อมูลในช่วงที่เลือก</td></tr>';$('results').querySelectorAll('tr[data-row]').forEach(tr=>tr.addEventListener('click',()=>showChart(lastRows[Number(tr.dataset.row)])));$('bestScore').textContent=lastRows.length?lastRows[0].score+'/100':'—';$('bestScore').classList.remove('pop');void $('bestScore').offsetWidth;$('bestScore').classList.add('pop');$('bestName').textContent=lastRows.length?lastRows[0].camp.name+' • '+lastRows[0].date:'ไม่มีข้อมูล';$('coverage').textContent=new Set(rows.map(r=>r.date)).size+' วัน';$('campCount').textContent=new Set(rows.map(r=>r.camp.name)).size+' ลาน';if(lastRows.length)showChart(lastRows[0])}
 function renderTop3(rows,province){const best=new Map();for(const row of rows){const key=row.camp.name+'|'+row.camp.province;const old=best.get(key);if(!old||row.score>old.score)best.set(key,row)}const top=[...best.values()].sort((a,b)=>b.score-a.score||a.camp.name.localeCompare(b.camp.name,'th')).slice(0,3);$('top3Context').textContent=`${province==='ALL'?'ลานที่เลือกจากทุกจังหวัด':'จังหวัด'+province} • ${$('startDate').value} ถึง ${$('endDate').value} • ประเมินได้ ${best.size} ลาน`;$('top3').innerHTML=top.length?top.map((r,i)=>`<div class="col-md-4"><div class="top3-card ${i===0?'first':''}"><div class="d-flex justify-content-between align-items-start"><div class="top3-rank">${['🥇','🥈','🥉'][i]} #${i+1}</div><div class="top3-score">${r.score}<span class="fs-6 text-secondary">/100</span></div></div><div class="fw-bold mt-2">${escapeHtml(r.camp.name)}</div><div class="small-muted">${escapeHtml(r.camp.province)} • เช้า ${escapeHtml(r.date)}</div><div class="scorebar my-2"><div style="width:${r.score}%"></div></div><div class="small">${scoreLabel(r.score)}</div><div class="mt-2">${tempBlock(r)}</div><div class="small-muted mt-2">ความเชื่อมั่น: ${escapeHtml(r.confidence)}</div><button class="btn btn-sm btn-outline-success mt-2 top3-detail" data-key="${escapeHtml(r.camp.name+'|'+r.camp.province)}" data-date="${r.date}">ดูกราฟรายชั่วโมง</button><button type="button" class="btn btn-sm btn-success mt-2" data-map="${escapeHtml(r.camp.name+'|'+r.camp.province)}"><i class="bi bi-geo-alt-fill me-1"></i>ดูบนแผนที่</button></div></div>`).join(''):'<div class="col-12 text-secondary py-3">ไม่มีข้อมูลพยากรณ์สำหรับจัดอันดับ</div>';$('top3').querySelectorAll('.top3-detail').forEach(b=>b.addEventListener('click',()=>{const row=rows.find(r=>r.camp.name+'|'+r.camp.province===b.dataset.key&&r.date===b.dataset.date);if(row){showChart(row);$('weatherChart').scrollIntoView({behavior:'smooth',block:'center'})}}))}
 function showChart(row){
  currentRow=row;
@@ -565,6 +592,7 @@ function showChart(row){
  const mn=sp.length?sp.reduce((a,b)=>b.s<a.s?b:a):null;
  const rhs=row.items.map(i=>i.rh).filter(v=>v!==null),rhMax=rhs.length?Math.max(...rhs):null;
  $('chartInfo').innerHTML=(mn?`<span>💧 ห่างจุดน้ำค้างน้อยสุด ${mn.s.toFixed(1)}°C (${mn.t} น.)</span>`:'')+`<span>RH เฉลี่ย ${fmt(row.rh)}%${rhMax!==null?' • สูงสุด '+Math.round(rhMax)+'%':''}</span><span>🌬️ ลม ${fmt(row.wind,1)} m/s</span><span>🌧️ ฝน ${fmt(row.rain,1)} mm</span>`;
+if(window.renderRain)renderRain(row.camp);
 }
 
 // Forecast polling: the initial scope is ALL camps in the locally stored catalog,
@@ -671,17 +699,15 @@ function toggleFavorite(k){favorites=favorites.includes(k)?favorites.filter(x=>x
 var baseLayer=null;
 var BASE_DEFS={
  street:{url:'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',o:{maxZoom:19,attribution:'© OpenStreetMap contributors'}},
- sat:{url:'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}.jpg',o:{maxZoom:20,attribution:'© CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | © <a href="https://www.stadiamaps.com/" target="_blank" rel="noopener noreferrer">Stadia Maps</a> © <a href="https://openmaptiles.org/" target="_blank" rel="noopener noreferrer">OpenMapTiles</a> © OpenStreetMap contributors'}}
+ sat:{url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',o:{maxNativeZoom:17,maxZoom:19,attribution:'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community'},
+  labels:{url:'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',o:{maxNativeZoom:17,maxZoom:19,opacity:.95}}}
 };
-var ESRI_FALLBACK={url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',o:{maxZoom:18,attribution:'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics'}};
-function stadiaKey(){try{return (localStorage.getItem('mist_stadia_key')||'').trim()}catch{return ''}}
-function baseNote(t){const n=document.getElementById('baseNote');if(!n)return;n.textContent=t||'';n.hidden=!t}
+var labelLayer=null;
 function setBase(id){
  if(!BASE_DEFS[id])id='street';if(!campMap)return;
- if(baseLayer)campMap.removeLayer(baseLayer);baseNote('');
- const d=BASE_DEFS[id],k=stadiaKey();let url=d.url;if(id==='sat'&&k)url+='?api_key='+encodeURIComponent(k);
- const layer=L.tileLayer(url,d.o).addTo(campMap);baseLayer=layer;
- if(id==='sat'){let errs=0,done=false;layer.on('tileerror',()=>{errs++;if(errs>=3&&!done&&baseLayer===layer){done=true;campMap.removeLayer(layer);baseLayer=L.tileLayer(ESRI_FALLBACK.url,ESRI_FALLBACK.o).addTo(campMap);baseNote(k?'Stadia ไม่ตอบกลับ (ตรวจ API key/โดเมน) • แสดงภาพดาวเทียม Esri แทน':'Stadia ต้องใช้ API key เมื่อเปิดจากโดเมนอื่น • แสดงภาพดาวเทียม Esri แทน (ใส่ key ได้ที่ ตั้งค่า > แผนที่ดาวเทียม)')}})}
+ if(baseLayer)campMap.removeLayer(baseLayer);if(labelLayer){campMap.removeLayer(labelLayer);labelLayer=null}
+ const d=BASE_DEFS[id];baseLayer=L.tileLayer(d.url,d.o).addTo(campMap);
+ if(d.labels)labelLayer=L.tileLayer(d.labels.url,d.labels.o).addTo(campMap);
  const el=document.getElementById('campMap');el.classList.remove('base-street','base-terrain','base-sat');el.classList.add('base-'+id);
  try{localStorage.setItem('mist_base',id)}catch{}
  document.querySelectorAll('#baseSwitch button').forEach(b=>b.classList.toggle('on',b.dataset.base===id));
@@ -699,7 +725,7 @@ function renderMap(){
   const icon=L.divIcon({className:'mist-marker',html:`<div class="mist-pin" style="--c:${color}"><span>${label}</span></div>`,iconSize:[42,46],iconAnchor:[21,44],popupAnchor:[0,-39]});
   const idx=camps.indexOf(c),fav=favorites.includes(k),roadText={unknown:'ยังไม่ตรวจสอบ',yes:'ผู้ใช้ยืนยันว่าไปได้',caution:'ควรสอบถาม',no:'ไม่เหมาะกับรถเก๋ง'}[road[k]||'unknown'];
   const nav='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.lat+','+c.lon);
-  (markerByKey[k]=L.marker([c.lat,c.lon],{icon})).addTo(markers).bindPopup(`<strong>${escapeHtml(c.name)}</strong><br>${escapeHtml(c.province)}<br><b>คะแนน: ${label}${r?'/100':''}</b>${r?'<br>เช้าวันที่ '+escapeHtml(r.date):''}${r?'<div class="mt-2">'+tempBlock(r)+'</div>':''}<div class="small-muted mt-2">📍 ${(+c.lat).toFixed(4)}, ${(+c.lon).toFixed(4)}</div><div class="mt-2">รถเก๋ง: ${roadText}</div><br><a href="${nav}" target="_blank" rel="noopener noreferrer">เปิดนำทาง</a><br><button class="btn btn-sm btn-outline-warning mt-2" onclick="toggleFavoriteByIndex(${idx})">${fav?'★ เอาออกจากโปรด':'☆ เพิ่มโปรด'}</button>`,{maxWidth:300,minWidth:250});
+  (markerByKey[k]=L.marker([c.lat,c.lon],{icon})).addTo(markers).bindPopup(`<strong>${escapeHtml(c.name)}</strong><br>${escapeHtml(c.province)}<br><b>คะแนน: ${label}${r?'/100':''}</b>${r?'<br>เช้าวันที่ '+escapeHtml(r.date):''}${r?'<div class="mt-2">'+tempBlock(r)+'</div><div class="mt-2">'+rainBlock(r)+'</div>':''}<div class="small-muted mt-2">📍 ${(+c.lat).toFixed(4)}, ${(+c.lon).toFixed(4)}</div><div class="mt-2">รถเก๋ง: ${roadText}</div><br><a href="${nav}" target="_blank" rel="noopener noreferrer">เปิดนำทาง</a><br><button class="btn btn-sm btn-outline-warning mt-2" onclick="toggleFavoriteByIndex(${idx})">${fav?'★ เอาออกจากโปรด':'☆ เพิ่มโปรด'}</button>`,{maxWidth:300,minWidth:250});
   bounds.push([c.lat,c.lon]);
  }
  if(bounds.length&&!window.__focusKey)campMap.fitBounds(bounds,{padding:[32,32],maxZoom:11});
@@ -747,7 +773,7 @@ function v2RankScore(r){let n=r.score;const t=$('v2Terrain').checked?v2TerrainSc
 function v2Best(rows){const best=new Map();for(const r of rows){const k=campKey(r.camp);if($('v2RoadOnly').checked&&v2Road(r.camp)!=='yes')continue;const old=best.get(k);if(!old||v2RankScore(r)>v2RankScore(old))best.set(k,r)}return [...best.values()].sort((a,b)=>v2RankScore(b)-v2RankScore(a)||b.score-a.score);}
 function v2Render(){const province=$('province').value,top=v2Best(lastRows).slice(0,3);$('top3Context').textContent=`${province==='ALL'?'ลานจากทุกจังหวัด':'จังหวัด'+province} • ${$('startDate').value} ถึง ${$('endDate').value} • Smart Ranking V2`;
  $('v2Summary').innerHTML=`<span>ประเมินแล้ว ${new Set(lastRows.map(r=>campKey(r.camp))).size} ลาน</span><span>ผ่านตัวกรอง ${v2Best(lastRows).length} ลาน</span><span>พิกัดเริ่มต้นเป็นค่าประมาณ โปรดตรวจสอบ</span>`;
- $('top3').innerHTML=top.length?top.map((r,i)=>{const k=campKey(r.camp),obs=v2Obs(r.camp),rel=v2TerrainScore(r.camp),access={yes:'รถเก๋ง: ผู้ใช้บันทึกว่าเข้าได้',no:'รถเก๋ง: ไม่เหมาะ',caution:'รถเก๋ง: ควรสอบถาม',unknown:'รถเก๋ง: ยังไม่ยืนยัน'}[v2Road(r.camp)];return `<div class="col-md-4"><div class="top3-card v2-top ${i===0?'first':''}"><div class="d-flex justify-content-between align-items-center"><span class="top3-rank">${['🥇','🥈','🥉'][i]} #${i+1}</span><strong class="top3-score">${v2RankScore(r)}<small class="fs-6">/100</small></strong></div><div class="fw-bold mt-2">${escapeHtml(r.camp.name)}</div><div class="small-muted">${escapeHtml(r.camp.province)} • เช้า ${escapeHtml(r.date)}</div><div class="scorebar my-2"><div style="width:${v2RankScore(r)}%"></div></div><div class="small">คะแนนอากาศ ${r.score}/100 • ${escapeHtml(r.confidence)}</div><div class="mt-2">${tempBlock(r)}</div><div class="v2-note mt-2">${access}</div><div class="v2-note">ความต่างระดับตัวอย่าง: ${rel===null?'ยังไม่มีข้อมูล':rel+' เมตร'} (ประมาณ)</div><div class="v2-note">บันทึกผู้ใช้: เห็นหมอก ${obs.yes}/${obs.count} ครั้ง${obs.count?' (ตัวอย่างน้อย ไม่ใช่โอกาสจริง)':''}</div><button class="btn btn-sm btn-outline-success mt-2 v2Detail" data-key="${escapeHtml(k)}" data-date="${r.date}">ดูกราฟ</button><button type="button" class="btn btn-sm btn-success mt-2" data-map="${escapeHtml(k)}"><i class="bi bi-geo-alt-fill me-1"></i>ดูบนแผนที่</button></div></div>`}).join(''):'<div class="col-12"><div class="v2-warning">ไม่มีลานผ่านตัวกรองหรือยังไม่ได้ดึงพยากรณ์ ลองยกเลิกตัวกรองรถเก๋ง (สถานะที่ยังไม่ยืนยันจะถูกตัดออก)</div></div>';
+ $('top3').innerHTML=top.length?top.map((r,i)=>{const k=campKey(r.camp),obs=v2Obs(r.camp),rel=v2TerrainScore(r.camp),access={yes:'รถเก๋ง: ผู้ใช้บันทึกว่าเข้าได้',no:'รถเก๋ง: ไม่เหมาะ',caution:'รถเก๋ง: ควรสอบถาม',unknown:'รถเก๋ง: ยังไม่ยืนยัน'}[v2Road(r.camp)];return `<div class="col-md-4"><div class="top3-card v2-top ${i===0?'first':''}"><div class="d-flex justify-content-between align-items-center"><span class="top3-rank">${['🥇','🥈','🥉'][i]} #${i+1}</span><strong class="top3-score">${v2RankScore(r)}<small class="fs-6">/100</small></strong></div><div class="fw-bold mt-2">${escapeHtml(r.camp.name)}</div><div class="small-muted">${escapeHtml(r.camp.province)} • เช้า ${escapeHtml(r.date)}</div><div class="scorebar my-2"><div style="width:${v2RankScore(r)}%"></div></div><div class="small">คะแนนอากาศ ${r.score}/100 • ${escapeHtml(r.confidence)}</div><div class="mt-2">${tempBlock(r)}</div><div class="mt-2">${rainBlock(r)}</div><div class="v2-note mt-2">${access}</div><div class="v2-note">ความต่างระดับตัวอย่าง: ${rel===null?'ยังไม่มีข้อมูล':rel+' เมตร'} (ประมาณ)</div><div class="v2-note">บันทึกผู้ใช้: เห็นหมอก ${obs.yes}/${obs.count} ครั้ง${obs.count?' (ตัวอย่างน้อย ไม่ใช่โอกาสจริง)':''}</div><button class="btn btn-sm btn-outline-success mt-2 v2Detail" data-key="${escapeHtml(k)}" data-date="${r.date}">ดูกราฟ</button><button type="button" class="btn btn-sm btn-success mt-2" data-map="${escapeHtml(k)}"><i class="bi bi-geo-alt-fill me-1"></i>ดูบนแผนที่</button></div></div>`}).join(''):'<div class="col-12"><div class="v2-warning">ไม่มีลานผ่านตัวกรองหรือยังไม่ได้ดึงพยากรณ์ ลองยกเลิกตัวกรองรถเก๋ง (สถานะที่ยังไม่ยืนยันจะถูกตัดออก)</div></div>';
  document.querySelectorAll('.v2Detail').forEach(b=>b.onclick=()=>{const r=lastRows.find(x=>campKey(x.camp)===b.dataset.key&&x.date===b.dataset.date);if(r){showChart(r);$('weatherChart').scrollIntoView({behavior:'smooth',block:'center'})}});
 }
 async function v2LoadTerrain(){if(!$('v2Terrain').checked||!lastRows.length)return;const unique=[...new Map(lastRows.map(r=>[campKey(r.camp),r.camp])).values()];$('v2TerrainStatus').textContent='กำลังอ่านความสูงบริเวณรอบลาน…';
@@ -781,7 +807,7 @@ function applyTheme(){
  const mt=document.querySelector('meta[name=theme-color]');if(mt)mt.content=dark?'#06121b':'#0a2236';
  $('themeBtn').innerHTML=dark?'<i class="bi bi-sun-fill"></i>':'<i class="bi bi-moon-stars-fill"></i>';
  document.querySelectorAll('#themeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.themePref===themePref));
- if(changed){if(currentRow)showChart(currentRow);if(activeTab==='bloom'&&window.renderBloom)renderBloom();if(typeof campMap!=='undefined'&&campMap)setTimeout(()=>campMap.invalidateSize(),50)}
+ if(changed){if(currentRow)showChart(currentRow);if(activeTab==='bloom'&&window.renderBloom)renderBloom();if(window.__lastRainCamp)renderRain(window.__lastRainCamp);if(typeof campMap!=='undefined'&&campMap)setTimeout(()=>campMap.invalidateSize(),50)}
 }
 function setThemePref(p){themePref=p;try{localStorage.setItem('mist_theme',p)}catch{}applyTheme()}
 $('themeBtn').addEventListener('click',()=>setThemePref(document.documentElement.dataset.theme==='dark'?'light':'dark'));
@@ -813,6 +839,7 @@ function updateHero(){
  const top=v2Best(lastRows)[0],sc=$('bestScore'),nm=$('bestName'),txt=top?v2RankScore(top)+'/100':'—';
  if(sc.textContent!==txt){sc.textContent=txt;sc.classList.remove('pop');void sc.offsetWidth;sc.classList.add('pop')}
  nm.textContent=top?top.camp.name+' • '+top.date:'ไม่มีลานผ่านตัวกรอง';
+ if(top&&window.renderRain)renderRain(top.camp);
 }
 const _v2r=v2Render;v2Render=function(){_v2r();updateHero()};
 renderTop3=function(){v2Render()};
@@ -959,8 +986,41 @@ $('bSite').addEventListener('click',()=>{const lat=Number($('bLat').value),lon=N
 $('bSiteReset').addEventListener('click',()=>{bloomSite={lat:BLOOM.lat,lon:BLOOM.lon};storeSet('bloom_site',bloomSite);$('bLat').value=bloomSite.lat;$('bLon').value=bloomSite.lon;bloomState.loadedFor='';loadBloomWeather(true)});
 // Add Phu Lom Lo to the camp catalog (approximate coordinates) so it can be compared with mist scores & shown on the map
 mergeCamps([{name:'ต้อเซี๊ย ภูหินร่องกล้า',province:'พิษณุโลก',lat:16.983907,lon:101.028765,source:'Google Maps (ผู้ใช้ระบุ)'}]);
-$('stadiaKey').value=stadiaKey();
-$('stadiaSave').addEventListener('click',()=>{try{localStorage.setItem('mist_stadia_key',$('stadiaKey').value.trim())}catch{}setBase('sat');showTab('maps')});
+
+function rainRisk(p,mm){
+ if((p===null||p===undefined)&&(mm===null||mm===undefined))return {t:'ไม่มีข้อมูล',s:'—',i:'—',c:'secondary'};
+ const P=p||0,M=mm||0;
+ if(M>=10||P>=80)return {t:'ฝนตกหนัก',s:'ฝนหนัก',i:'⛈️',c:'danger'};
+ if(M>=2||P>=50)return {t:'เสี่ยงฝน',s:'เสี่ยงฝน',i:'🌧️',c:'warning'};
+ if(M>=0.3||P>=25)return {t:'อาจมีฝนเล็กน้อย',s:'ฝนเล็กน้อย',i:'🌦️',c:'info'};
+ return {t:'ฝนน้อยมาก',s:'แห้ง',i:'☀️',c:'success'};
+}
+function rainBlock(r){
+ const f=(p,m)=>`${p===null||p===undefined?'—':Math.round(p)+'%'}<small>${m===null||m===undefined?'':m.toFixed(1)+' มม.'}</small>`;
+ const rk=rainRisk(r.pNight,r.rainNight);
+ const tip=rk.c==='warning'||rk.c==='danger'?' • เตรียมฟลายชีท/ผ้าใบกันน้ำ และเลือกพื้นที่ระบายน้ำดี':'';
+ return `<div class="rain3"><div class="r-box"><span>🌙 คืนก่อนเช้า</span><b>${f(r.pNight,r.rainNight)}</b></div><div class="r-box"><span>🌅 เช้าชมหมอก</span><b>${f(r.pMorn,r.rain)}</b></div><div class="r-box"><span>☀️ ทั้งวัน</span><b>${f(r.pAll,r.rainDay)}</b></div></div><div class="rain-v ${rk.c}">${rk.i} ${rk.t} ช่วงกลางคืน${tip}</div>`;
+}
+var rainChartObj=null;
+function renderRain(camp){
+ if(!camp||!lastRows.length||!$('rainStrip'))return;
+ window.__lastRainCamp=camp;
+ const k=campKey(camp),rows=lastRows.filter(r=>campKey(r.camp)===k).sort((a,b)=>a.date<b.date?-1:1);
+ $('rainCamp').textContent=camp.name;
+ if(!rows.length){$('rainStrip').innerHTML='<div class="small-muted">ไม่มีข้อมูลฝนของลานนี้</div>';return}
+ const sd=d=>new Date(d+'T12:00:00+07:00').toLocaleDateString('th-TH',{day:'numeric',month:'short'});
+ $('rainStrip').innerHTML=rows.map(r=>{const rk=rainRisk(r.pNight,r.rainNight);return `<div class="rs-card ${rk.c}"><b>${sd(r.date)}</b><div class="rs-ic">${rk.i}</div><div class="rs-p">${r.pNight===null||r.pNight===undefined?'—':Math.round(r.pNight)+'%'}</div><small>${r.rainNight===null||r.rainNight===undefined?'':r.rainNight.toFixed(1)+' มม.'}</small><em>${rk.s}</em></div>`}).join('');
+ if(!window.Chart)return;
+ const dark=document.documentElement.dataset.theme==='dark',txt=dark?'#a9c0cd':'#5a7284',grid=dark?'#ffffff14':'#10283a14';
+ if(rainChartObj)rainChartObj.destroy();
+ rainChartObj=new Chart($('rainChart'),{data:{labels:rows.map(r=>sd(r.date)),datasets:[
+  {type:'bar',label:'ฝนรวมทั้งวัน (มม.)',data:rows.map(r=>r.rainDay),yAxisID:'y',backgroundColor:dark?'#4a90e2cc':'#4a90e2b3',borderRadius:8,maxBarThickness:28,order:2},
+  {type:'line',label:'โอกาสฝนสูงสุด (%)',data:rows.map(r=>r.pAll),yAxisID:'y1',borderColor:'#e0529b',backgroundColor:'#e0529b',borderWidth:2.5,tension:.35,pointRadius:3.5,pointBackgroundColor:dark?'#0f2230':'#fff',pointBorderColor:'#e0529b',pointBorderWidth:2,spanGaps:true,order:1}
+ ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},animation:{duration:700,easing:'easeOutQuart'},
+  plugins:{legend:{position:'top',align:'start',labels:{usePointStyle:true,pointStyle:'circle',boxWidth:8,boxHeight:8,padding:12,color:txt,font:{size:11,weight:'600'}}},tooltip:{backgroundColor:dark?'#02080d':'#0a2236',padding:12,cornerRadius:14,usePointStyle:true,callbacks:{label:c=>' '+c.dataset.label.split(' (')[0]+': '+(c.parsed.y===null?'—':c.dataset.yAxisID==='y1'?Math.round(c.parsed.y)+'%':c.parsed.y.toFixed(1)+' มม.')}}},
+  scales:{x:{grid:{display:false},border:{display:false},ticks:{color:txt,font:{size:11,weight:'600'},maxRotation:0,autoSkip:true}},y:{position:'left',beginAtZero:true,grace:'10%',border:{display:false},grid:{color:grid,borderDash:[4,4]},ticks:{color:txt,font:{size:11},maxTicksLimit:5}},y1:{position:'right',min:0,max:100,border:{display:false},grid:{drawOnChartArea:false},ticks:{color:txt,font:{size:11},stepSize:25,callback:v=>v+'%'}}}}});
+}
+if(lastRows.length&&window.__lastRainCamp)renderRain(window.__lastRainCamp);
 showTab('home');
 refreshForecast('initial');
 </script>
